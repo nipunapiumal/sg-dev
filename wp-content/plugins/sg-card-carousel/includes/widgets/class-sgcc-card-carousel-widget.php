@@ -54,6 +54,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->register_style_card_controls();
 		$this->register_style_badge_controls();
 		$this->register_style_text_controls();
+		$this->register_style_overlay_controls();
 		$this->register_style_navigation_controls();
 	}
 
@@ -66,6 +67,19 @@ class Card_Carousel_Widget extends Widget_Base {
 			'section_cards',
 			[
 				'label' => esc_html__( 'Cards', 'sg-card-carousel' ),
+			]
+		);
+
+		$this->add_control(
+			'card_style',
+			[
+				'label'   => esc_html__( 'Card Style', 'sg-card-carousel' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'default',
+				'options' => [
+					'default' => esc_html__( 'Media & Text', 'sg-card-carousel' ),
+					'overlay' => esc_html__( 'Image Overlay', 'sg-card-carousel' ),
+				],
 			]
 		);
 
@@ -94,12 +108,26 @@ class Card_Carousel_Widget extends Widget_Base {
 		);
 
 		$repeater->add_control(
+			'card_flag',
+			[
+				'label'       => esc_html__( 'Flag / Emoji (Image Overlay style)', 'sg-card-carousel' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => false,
+				'default'     => '',
+				'placeholder' => '🇹🇷',
+				'description' => esc_html__( 'Shown next to the title in the Image Overlay card style.', 'sg-card-carousel' ),
+				'dynamic'     => [ 'active' => true ],
+			]
+		);
+
+		$repeater->add_control(
 			'card_subtitle',
 			[
 				'label'       => esc_html__( 'Subtitle', 'sg-card-carousel' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => true,
 				'default'     => esc_html__( 'GT3 RS', 'sg-card-carousel' ),
+				'description' => esc_html__( 'In the Image Overlay style this renders as the stats line under the title (e.g. "1,991 Hotels • 42 Packages").', 'sg-card-carousel' ),
 				'dynamic'     => [ 'active' => true ],
 			]
 		);
@@ -181,6 +209,17 @@ class Card_Carousel_Widget extends Widget_Base {
 				'type'        => Controls_Manager::URL,
 				'label_block' => true,
 				'placeholder' => esc_html__( 'https://your-link.com', 'sg-card-carousel' ),
+				'dynamic'     => [ 'active' => true ],
+			]
+		);
+
+		$repeater->add_control(
+			'card_button_text',
+			[
+				'label'       => esc_html__( 'Button Text (Image Overlay style)', 'sg-card-carousel' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => false,
+				'default'     => esc_html__( 'Explore Now', 'sg-card-carousel' ),
 				'dynamic'     => [ 'active' => true ],
 			]
 		);
@@ -416,6 +455,7 @@ class Card_Carousel_Widget extends Widget_Base {
 				'selectors'  => [
 					'{{WRAPPER}} .sgcc-card__body' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
 				],
+				'condition'  => [ 'card_style' => 'default' ],
 			]
 		);
 
@@ -432,6 +472,7 @@ class Card_Carousel_Widget extends Widget_Base {
 				'selectors'  => [
 					'{{WRAPPER}} .sgcc-card__media' => 'height: {{SIZE}}{{UNIT}};',
 				],
+				'condition'  => [ 'card_style' => 'default' ],
 			]
 		);
 
@@ -446,8 +487,9 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_style_badges',
 			[
-				'label' => esc_html__( 'Badges', 'sg-card-carousel' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'label'     => esc_html__( 'Badges (Media & Text style)', 'sg-card-carousel' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [ 'card_style' => 'default' ],
 			]
 		);
 
@@ -520,8 +562,9 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_style_text',
 			[
-				'label' => esc_html__( 'Title & Description', 'sg-card-carousel' ),
-				'tab'   => Controls_Manager::TAB_STYLE,
+				'label'     => esc_html__( 'Title & Description (Media & Text style)', 'sg-card-carousel' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [ 'card_style' => 'default' ],
 			]
 		);
 
@@ -582,6 +625,153 @@ class Card_Carousel_Widget extends Widget_Base {
 			[
 				'name'     => 'description_typography',
 				'selector' => '{{WRAPPER}} .sgcc-card__desc',
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	/* ------------------------------------------------------------------ */
+	/* Style — image overlay                                              */
+	/* ------------------------------------------------------------------ */
+
+	private function register_style_overlay_controls() {
+		$this->start_controls_section(
+			'section_style_overlay',
+			[
+				'label'     => esc_html__( 'Image Overlay Style', 'sg-card-carousel' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [ 'card_style' => 'overlay' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'overlay_min_height',
+			[
+				'label'      => esc_html__( 'Card Height', 'sg-card-carousel' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px', 'vh' ],
+				'range'      => [
+					'px' => [ 'min' => 200, 'max' => 700 ],
+				],
+				'default'    => [ 'size' => 380, 'unit' => 'px' ],
+				'selectors'  => [
+					'{{WRAPPER}} .sgcc-card--overlay' => 'min-height: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'overlay_gradient_color',
+			[
+				'label'     => esc_html__( 'Gradient Color', 'sg-card-carousel' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(10, 10, 10, 0.85)',
+				'selectors' => [
+					'{{WRAPPER}} .sgcc-card--overlay::before' => 'background-image: linear-gradient(180deg, rgba(0,0,0,0) 35%, {{VALUE}} 100%);',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'overlay_content_padding',
+			[
+				'label'      => esc_html__( 'Content Padding', 'sg-card-carousel' ),
+				'type'       => Controls_Manager::DIMENSIONS,
+				'size_units' => [ 'px', 'em', '%' ],
+				'default'    => [
+					'top'      => 20,
+					'right'    => 20,
+					'bottom'   => 20,
+					'left'     => 20,
+					'unit'     => 'px',
+					'isLinked' => false,
+				],
+				'selectors'  => [
+					'{{WRAPPER}} .sgcc-card__overlay-content' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'heading_overlay_title',
+			[
+				'label'     => esc_html__( 'Title & Stats', 'sg-card-carousel' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'overlay_title_color',
+			[
+				'label'     => esc_html__( 'Title Color', 'sg-card-carousel' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => [
+					'{{WRAPPER}} .sgcc-card--overlay .sgcc-card__title' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'overlay_title_typography',
+				'selector' => '{{WRAPPER}} .sgcc-card--overlay .sgcc-card__title',
+			]
+		);
+
+		$this->add_control(
+			'overlay_stats_color',
+			[
+				'label'     => esc_html__( 'Stats Color', 'sg-card-carousel' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.8)',
+				'selectors' => [
+					'{{WRAPPER}} .sgcc-card--overlay .sgcc-card__subtitle' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'overlay_stats_typography',
+				'selector' => '{{WRAPPER}} .sgcc-card--overlay .sgcc-card__subtitle',
+			]
+		);
+
+		$this->add_control(
+			'heading_overlay_button',
+			[
+				'label'     => esc_html__( 'Button', 'sg-card-carousel' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'overlay_button_background',
+			[
+				'label'     => esc_html__( 'Background', 'sg-card-carousel' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255, 255, 255, 0.18)',
+				'selectors' => [
+					'{{WRAPPER}} .sgcc-card__button' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'overlay_button_text_color',
+			[
+				'label'     => esc_html__( 'Text Color', 'sg-card-carousel' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => [
+					'{{WRAPPER}} .sgcc-card__button' => 'color: {{VALUE}};',
+				],
 			]
 		);
 
@@ -711,37 +901,49 @@ class Card_Carousel_Widget extends Widget_Base {
 			'showDots'         => $show_dots,
 		];
 
+		$is_overlay = 'overlay' === $settings['card_style'];
+
 		$this->add_render_attribute( 'swiper', 'class', 'sgcc-swiper swiper' );
 		$this->add_render_attribute( 'swiper', 'data-sgcc-settings', wp_json_encode( $config ) );
 		?>
-		<div <?php $this->print_render_attribute_string( 'swiper' ); ?>>
-			<div class="swiper-wrapper">
-				<?php foreach ( $cards as $card ) : ?>
-					<div class="swiper-slide">
-						<?php $this->render_card( $card ); ?>
-					</div>
-				<?php endforeach; ?>
-			</div>
+		<div class="sgcc-carousel">
+			<div <?php $this->print_render_attribute_string( 'swiper' ); ?>>
+				<div class="swiper-wrapper">
+					<?php foreach ( $cards as $card ) : ?>
+						<div class="swiper-slide">
+							<?php $is_overlay ? $this->render_card_overlay( $card ) : $this->render_card_default( $card ); ?>
+						</div>
+					<?php endforeach; ?>
+				</div>
 
-			<?php if ( count( $cards ) > 1 ) : ?>
-				<?php if ( $show_arrows ) : ?>
-					<div class="sgcc-nav sgcc-nav--prev" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Previous', 'sg-card-carousel' ); ?>">
-						<?php Icons_Manager::render_icon( [ 'library' => 'eicons', 'value' => 'eicon-chevron-left' ], [ 'aria-hidden' => 'true' ] ); ?>
-					</div>
-					<div class="sgcc-nav sgcc-nav--next" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Next', 'sg-card-carousel' ); ?>">
-						<?php Icons_Manager::render_icon( [ 'library' => 'eicons', 'value' => 'eicon-chevron-right' ], [ 'aria-hidden' => 'true' ] ); ?>
-					</div>
-				<?php endif; ?>
-
-				<?php if ( $show_dots ) : ?>
+				<?php if ( count( $cards ) > 1 && $show_dots ) : ?>
 					<div class="swiper-pagination sgcc-pagination"></div>
 				<?php endif; ?>
+			</div>
+
+			<?php if ( count( $cards ) > 1 && $show_arrows ) : ?>
+				<div class="sgcc-nav sgcc-nav--prev" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Previous', 'sg-card-carousel' ); ?>">
+					<?php Icons_Manager::render_icon( [ 'library' => 'eicons', 'value' => 'eicon-chevron-left' ], [ 'aria-hidden' => 'true' ] ); ?>
+				</div>
+				<div class="sgcc-nav sgcc-nav--next" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Next', 'sg-card-carousel' ); ?>">
+					<?php Icons_Manager::render_icon( [ 'library' => 'eicons', 'value' => 'eicon-chevron-right' ], [ 'aria-hidden' => 'true' ] ); ?>
+				</div>
 			<?php endif; ?>
 		</div>
 		<?php
 	}
 
-	private function render_card( $card ) {
+	private function get_card_image_url( $card ) {
+		if ( ! empty( $card['card_image']['id'] ) ) {
+			$image_size = $this->get_settings_for_display( 'card_image_size' );
+			$src        = Group_Control_Image_Size::get_attachment_image_src( $card['card_image']['id'], 'card_image', $this->get_settings_for_display() );
+			return $src ? $src : wp_get_attachment_image_url( $card['card_image']['id'], $image_size ? $image_size : 'large' );
+		}
+
+		return ! empty( $card['card_image']['url'] ) ? $card['card_image']['url'] : '';
+	}
+
+	private function render_card_default( $card ) {
 		$has_link = ! empty( $card['card_link']['url'] );
 
 		if ( $has_link ) {
@@ -798,6 +1000,50 @@ class Card_Carousel_Widget extends Widget_Base {
 		}
 
 		echo '</div>'; // .sgcc-card__body
+
+		echo $has_link ? '</a>' : '</div>';
+	}
+
+	private function render_card_overlay( $card ) {
+		$has_link   = ! empty( $card['card_link']['url'] );
+		$image_url  = $this->get_card_image_url( $card );
+		$card_class = 'sgcc-card sgcc-card--overlay';
+
+		$style = $image_url ? ' style="background-image:url(' . esc_url( $image_url ) . ');"' : '';
+
+		if ( $has_link ) {
+			$link_key = 'card_link_' . $card['_id'];
+			$this->add_link_attributes( $link_key, $card['card_link'] );
+			echo '<a ' . $this->get_render_attribute_string( $link_key ) . ' class="' . esc_attr( $card_class ) . '"' . $style . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		} else {
+			echo '<div class="' . esc_attr( $card_class ) . '"' . $style . '>'; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+		}
+
+		echo '<div class="sgcc-card__overlay-content">';
+
+		if ( ! empty( $card['card_title'] ) || ! empty( $card['card_flag'] ) || ! empty( $card['card_subtitle'] ) ) {
+			echo '<div>';
+			if ( ! empty( $card['card_title'] ) || ! empty( $card['card_flag'] ) ) {
+				echo '<h3 class="sgcc-card__title">';
+				if ( ! empty( $card['card_title'] ) ) {
+					echo esc_html( $card['card_title'] );
+				}
+				if ( ! empty( $card['card_flag'] ) ) {
+					echo ' <span class="sgcc-card__flag">' . esc_html( $card['card_flag'] ) . '</span>';
+				}
+				echo '</h3>';
+			}
+			if ( ! empty( $card['card_subtitle'] ) ) {
+				echo '<span class="sgcc-card__subtitle">' . esc_html( $card['card_subtitle'] ) . '</span>';
+			}
+			echo '</div>';
+		}
+
+		if ( ! empty( $card['card_button_text'] ) ) {
+			echo '<span class="sgcc-card__button">' . esc_html( $card['card_button_text'] ) . ' <i class="sgcc-card__button-arrow" aria-hidden="true">&rarr;</i></span>';
+		}
+
+		echo '</div>'; // .sgcc-card__overlay-content
 
 		echo $has_link ? '</a>' : '</div>';
 	}

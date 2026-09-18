@@ -39,8 +39,8 @@
 
 		if ( config.showArrows ) {
 			swiperOptions.navigation = {
-				nextEl: $swiper.find( '.sgcc-nav--next' ).get( 0 ),
-				prevEl: $swiper.find( '.sgcc-nav--prev' ).get( 0 ),
+				nextEl: $scope.find( '.sgcc-nav--next' ).get( 0 ),
+				prevEl: $scope.find( '.sgcc-nav--prev' ).get( 0 ),
 			};
 		}
 

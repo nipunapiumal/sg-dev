@@ -1,5 +1,10 @@
+.sgcc-carousel {
+	position: relative;
+}
+
 .sgcc-swiper {
 	position: relative;
+	overflow: hidden;
 	padding-bottom: 8px;
 }
 
@@ -96,6 +101,74 @@ a.sgcc-card:hover {
 	color: #6b7280;
 }
 
+/* Image overlay card style */
+.sgcc-card--overlay {
+	position: relative;
+	justify-content: flex-end;
+	min-height: 380px;
+	background-color: #1f2937;
+	background-size: cover;
+	background-position: center;
+}
+
+.sgcc-card--overlay::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 35%, rgba(10, 10, 10, 0.85) 100%);
+}
+
+.sgcc-card__overlay-content {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: 16px;
+	height: 100%;
+	padding: 20px;
+}
+
+.sgcc-card--overlay .sgcc-card__title {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	margin: 0;
+	font-size: 20px;
+	color: #fff;
+}
+
+.sgcc-card__flag {
+	font-size: 16px;
+	line-height: 1;
+}
+
+.sgcc-card--overlay .sgcc-card__subtitle {
+	margin-top: 4px;
+	font-size: 13px;
+	font-weight: 400;
+	color: rgba(255, 255, 255, 0.8);
+}
+
+.sgcc-card__button {
+	display: inline-flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	align-self: flex-start;
+	padding: 10px 16px;
+	border-radius: 999px;
+	background-color: rgba(255, 255, 255, 0.18);
+	backdrop-filter: blur(6px);
+	color: #fff;
+	font-size: 13px;
+	font-weight: 600;
+}
+
+.sgcc-card__button-arrow {
+	font-style: normal;
+}
+
 /* Navigation arrows */
 .sgcc-nav {
 	position: absolute;
@@ -114,13 +187,13 @@ a.sgcc-card:hover {
 	transform: translateY(-50%);
 }
 
-/* .sgcc-nav--prev {
+.sgcc-nav--prev {
 	left: -22px;
 }
 
 .sgcc-nav--next {
 	right: -22px;
-} */
+}
 
 .sgcc-nav.swiper-button-disabled {
 	opacity: 0.35;
