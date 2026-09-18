@@ -1,0 +1,10 @@
+@media (max-width: 767px) {
+  /* Booking System */
+  .wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header {
+    padding: 10px 15px;
+  }
+  .wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-next .wpbs-arrow,
+  .wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-prev .wpbs-arrow {
+    font-size: 10px;
+  }
+}

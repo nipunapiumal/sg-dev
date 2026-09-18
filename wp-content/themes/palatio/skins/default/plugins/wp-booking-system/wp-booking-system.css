@@ -1,0 +1,222 @@
+/* WP Booking System styles
+----------------------------------------------------------------- */
+.wpbs-calendars-wrapper.wpbs-legend-position-side {
+  max-width: unset !important;
+}
+
+.wpbs-container[data-columns] .wpbs-calendars .wpbs-calendar {
+  max-width: unset !important;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar-wrapper {
+  padding: 0;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar {
+  border-color: var(--theme-color-alter_bg_hover);
+  background-color: var(--theme-color-alter_bg_hover);
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar table thead tr th {
+  padding-bottom: 0 !important;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar table tr td > div.wpbs-is-bookable.wpbs-date-selected .wpbs-date-inner .wpbs-date-number,
+.wpbs-container .wpbs-calendars .wpbs-calendar table tr td > div.wpbs-is-bookable.wpbs-date-hover .wpbs-date-inner .wpbs-date-number,
+.wpbs-container .wpbs-calendars .wpbs-calendar table tr td:hover > div.wpbs-is-bookable .wpbs-date-inner .wpbs-date-number,
+.wpbs-container .wpbs-calendars .wpbs-calendar table tr td > div.wpbs-is-bookable:hover .wpbs-date-inner .wpbs-date-number {
+  color: var(--theme-color-inverse_link);
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar table tr td .wpbs-date-inner .wpbs-date-number {
+  transition: all 0.3s ease;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar table tr td .wpbs-date.wpbs-gap {
+  background-color: var(--theme-color-bg_color);
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header {
+  color: var(--theme-color-alter_bg_color);
+  background-color: var(--theme-color-text_dark);
+  padding: 15px 25px;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-select-container select {
+  font-family: var(--theme-font-h5_font-family);
+  font-size: var(--theme-font-p_font-size);
+  font-weight: var(--theme-font-h5_font-weight);
+  border: none;
+  text-align: center;
+  color: var(--theme-color-bg_color);
+  height: auto;
+  vertical-align: middle;
+  padding: 0 20px !important;
+  width: auto;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-select-container .select_container {
+  width: auto !important;
+  display: inline-block;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-select-container .select_container:after {
+  color: var(--theme-color-bg_color);
+  font-size: 20px;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-next,
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-prev {
+  background-color: transparent;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-next .wpbs-arrow,
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-prev .wpbs-arrow {
+  border: none;
+  margin: 0;
+  left: 0;
+  top: 0;
+  right: 0;
+  display: inline;
+  width: auto;
+  height: auto;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-next .wpbs-arrow:before,
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-prev .wpbs-arrow:before {
+  content: '';
+  position: relative;
+  font-family: "fontello";
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-prev {
+  color: var(--theme-color-bg_color);
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-prev .wpbs-arrow {
+  text-align: left;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-prev .wpbs-arrow:before {
+  content: '\EA07';
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-next {
+  color: var(--theme-color-bg_color);
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-next .wpbs-arrow {
+  text-align: right;
+}
+
+.wpbs-container .wpbs-calendars .wpbs-calendar .wpbs-calendar-header .wpbs-calendar-header-navigation .wpbs-next .wpbs-arrow:before {
+  content: '\E9DF';
+}
+
+.wpbs-container .wpbs-legend {
+  background-color: var(--theme-color-alter_bg_hover);
+  border-color: var(--theme-color-alter_bg_hover);
+}
+
+.wpbs-main-wrapper .wpbs-form-container {
+  padding-bottom: 0;
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field-label {
+  color: var(--theme-color-text_dark);
+  margin-bottom: 5px;
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field-description {
+  color: var(--theme-color-text_light);
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-submit-button {
+  padding-bottom: 0;
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-checkbox .wpbs-form-field-input label,
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-radio .wpbs-form-field-input label {
+  position: relative;
+  font-size: 14px;
+  padding-left: 1.8em;
+  line-height: 22px;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-checkbox .wpbs-form-field-input label input,
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-radio .wpbs-form-field-input label input {
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-checkbox .wpbs-form-field-input label input:checked ~ span:after,
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-radio .wpbs-form-field-input label input:checked ~ span:after {
+  content: '\e9f6';
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-checkbox .wpbs-form-field-input label span,
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-radio .wpbs-form-field-input label span {
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  display: block;
+  text-align: center;
+  border: 1px solid var(--theme-color-bd_color);
+  width: 16px;
+  height: 16px;
+  line-height: 15px;
+  position: absolute;
+  z-index: 1;
+  top: 0.19em;
+  left: 0;
+  -webkit-box-sizing: border-box;
+  -ms-box-sizing: border-box;
+  box-sizing: border-box;
+  -webkit-border-radius: 4px;
+  -ms-border-radius: 4px;
+  border-radius: 4px;
+  cursor: pointer;
+  -webkit-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  transition: all 0.3s ease;
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-checkbox .wpbs-form-field-input label span:after,
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-radio .wpbs-form-field-input label span:after {
+  content: ' ';
+  font-family: "fontello";
+  font-size: 7px;
+  letter-spacing: 0;
+  color: var(--theme-color-text_dark);
+  display: block;
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-checkbox .wpbs-form-field-input label:hover span,
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-checkbox .wpbs-form-field-input label:hover span,
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-radio .wpbs-form-field-input label:hover span,
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-radio .wpbs-form-field-input label:hover span {
+  border-color: var(--theme-color-text_dark);
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-radio .wpbs-form-field-input label input {
+  clip: rect(1px, 1px, 1px, 1px);
+  position: absolute !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-radio .wpbs-form-field-input label input:checked ~ span:after {
+  font-size: 30px;
+  content: '\E83C';
+}
+
+.wpbs-main-wrapper .wpbs-form-container .wpbs-form-field.wpbs-form-field-radio .wpbs-form-field-input label span {
+  border-radius: 50%;
+  height: 16px;
+  line-height: 15px;
+}
+
