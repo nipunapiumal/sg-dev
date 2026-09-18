@@ -2,6 +2,15 @@
 	position: relative;
 }
 
+.sgcc-empty-notice {
+	padding: 20px;
+	border: 1px dashed #d1d5db;
+	border-radius: 8px;
+	color: #6b7280;
+	font-size: 13px;
+	text-align: center;
+}
+
 .sgcc-swiper {
 	position: relative;
 	overflow: hidden;

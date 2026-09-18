@@ -2,7 +2,7 @@
 /**
  * Plugin Name: SG Card Carousel for Elementor
  * Description: Adds a "Card Carousel" widget to Elementor — a Swiper-powered carousel of media cards (image, badges, title, subtitle, description, link), styled after a product/vehicle showcase card.
- * Version: 1.2.0
+ * Version: 1.3.0
  * Author: SG
  * Text Domain: sg-card-carousel
  * Requires Plugins: elementor
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'SGCC_VERSION', '1.2.0' );
+define( 'SGCC_VERSION', '1.3.0' );
 define( 'SGCC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SGCC_URL', plugin_dir_url( __FILE__ ) );
 

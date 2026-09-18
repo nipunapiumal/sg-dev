@@ -83,6 +83,19 @@ class Card_Carousel_Widget extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'data_source',
+			[
+				'label'   => esc_html__( 'Card Source', 'sg-card-carousel' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'manual',
+				'options' => [
+					'manual'   => esc_html__( 'Manual', 'sg-card-carousel' ),
+					'services' => esc_html__( 'Services (Dynamic)', 'sg-card-carousel' ),
+				],
+			]
+		);
+
 		$repeater = new Repeater();
 
 		$repeater->add_control(
@@ -245,6 +258,64 @@ class Card_Carousel_Widget extends Widget_Base {
 					],
 				],
 				'title_field' => '{{{ card_title }}} {{{ card_subtitle }}}',
+				'condition'   => [ 'data_source' => 'manual' ],
+			]
+		);
+
+		$this->add_control(
+			'heading_services_source',
+			[
+				'label'     => esc_html__( 'Services Source', 'sg-card-carousel' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+				'condition' => [ 'data_source' => 'services' ],
+			]
+		);
+
+		$this->add_control(
+			'services_categories',
+			[
+				'label'       => esc_html__( 'Filter by Category', 'sg-card-carousel' ),
+				'type'        => Controls_Manager::SELECT2,
+				'multiple'    => true,
+				'label_block' => true,
+				'options'     => $this->get_service_category_options(),
+				'description' => esc_html__( 'Leave empty to include services from every category.', 'sg-card-carousel' ),
+				'condition'   => [ 'data_source' => 'services' ],
+			]
+		);
+
+		$this->add_control(
+			'services_posts',
+			[
+				'label'       => esc_html__( 'Select Specific Services', 'sg-card-carousel' ),
+				'type'        => Controls_Manager::SELECT2,
+				'multiple'    => true,
+				'label_block' => true,
+				'options'     => $this->get_service_post_options(),
+				'description' => esc_html__( 'Optional — hand-pick individual services in addition to the category filter above.', 'sg-card-carousel' ),
+				'condition'   => [ 'data_source' => 'services' ],
+			]
+		);
+
+		$this->add_control(
+			'services_count',
+			[
+				'label'       => esc_html__( 'Number of Services', 'sg-card-carousel' ),
+				'type'        => Controls_Manager::NUMBER,
+				'default'     => -1,
+				'description' => esc_html__( 'Maximum number of services to show. Use -1 for no limit.', 'sg-card-carousel' ),
+				'condition'   => [ 'data_source' => 'services' ],
+			]
+		);
+
+		$this->add_control(
+			'services_button_text',
+			[
+				'label'     => esc_html__( 'Button Text (Image Overlay style)', 'sg-card-carousel' ),
+				'type'      => Controls_Manager::TEXT,
+				'default'   => esc_html__( 'Learn More', 'sg-card-carousel' ),
+				'condition' => [ 'data_source' => 'services' ],
 			]
 		);
 
@@ -257,6 +328,143 @@ class Card_Carousel_Widget extends Widget_Base {
 		);
 
 		$this->end_controls_section();
+	}
+
+	/**
+	 * Build the "Filter by Category" options from the cpt_services_group taxonomy.
+	 */
+	private function get_service_category_options() {
+		if ( ! taxonomy_exists( 'cpt_services_group' ) ) {
+			return [];
+		}
+
+		$terms = get_terms( [
+			'taxonomy'   => 'cpt_services_group',
+			'hide_empty' => false,
+		] );
+
+		$options = [];
+
+		if ( ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+				$options[ $term->term_id ] = $term->name;
+			}
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Build the "Select Specific Services" options from the cpt_services post type.
+	 */
+	private function get_service_post_options() {
+		if ( ! post_type_exists( 'cpt_services' ) ) {
+			return [];
+		}
+
+		$posts = get_posts( [
+			'post_type'      => 'cpt_services',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'orderby'        => 'title',
+			'order'          => 'ASC',
+		] );
+
+		$options = [];
+
+		foreach ( $posts as $post ) {
+			$options[ $post->ID ] = $post->post_title;
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Build a repeater-shaped card array for each matching Service post, so
+	 * render_card_default()/render_card_overlay() can be reused unchanged.
+	 */
+	private function get_service_cards( $settings ) {
+		if ( ! post_type_exists( 'cpt_services' ) ) {
+			return [];
+		}
+
+		$category_ids = ! empty( $settings['services_categories'] ) ? array_map( 'absint', (array) $settings['services_categories'] ) : [];
+		$post_ids     = ! empty( $settings['services_posts'] ) ? array_map( 'absint', (array) $settings['services_posts'] ) : [];
+		$limit        = isset( $settings['services_count'] ) ? (int) $settings['services_count'] : -1;
+
+		$base_args = [
+			'post_type'      => 'cpt_services',
+			'post_status'    => 'publish',
+			'posts_per_page' => -1,
+			'orderby'        => 'menu_order date',
+			'order'          => 'ASC',
+			'fields'         => 'ids',
+			'no_found_rows'  => true,
+		];
+
+		if ( $category_ids ) {
+			$found_ids = get_posts( array_merge( $base_args, [
+				'tax_query' => [
+					[
+						'taxonomy' => 'cpt_services_group',
+						'field'    => 'term_id',
+						'terms'    => $category_ids,
+					],
+				],
+			] ) );
+		} elseif ( ! $post_ids ) {
+			$found_ids = get_posts( $base_args );
+		} else {
+			$found_ids = [];
+		}
+
+		if ( $post_ids ) {
+			$found_ids = array_values( array_unique( array_merge( $found_ids, $post_ids ) ) );
+		}
+
+		if ( empty( $found_ids ) ) {
+			return [];
+		}
+
+		if ( $limit > 0 ) {
+			$found_ids = array_slice( $found_ids, 0, $limit );
+		}
+
+		$button_text = ! empty( $settings['services_button_text'] ) ? $settings['services_button_text'] : '';
+
+		$cards = [];
+
+		foreach ( $found_ids as $post_id ) {
+			$post = get_post( $post_id );
+
+			if ( ! $post || 'publish' !== $post->post_status ) {
+				continue;
+			}
+
+			$terms       = get_the_terms( $post_id, 'cpt_services_group' );
+			$category    = ( $terms && ! is_wp_error( $terms ) ) ? implode( ', ', wp_list_pluck( $terms, 'name' ) ) : '';
+			$thumbnail_id = get_post_thumbnail_id( $post_id );
+
+			$cards[] = [
+				'_id'              => 'svc' . $post_id,
+				'card_image'       => $thumbnail_id ? [ 'id' => $thumbnail_id ] : [],
+				'card_title'       => get_the_title( $post_id ),
+				'card_flag'        => '',
+				'card_subtitle'    => $category,
+				'card_description' => get_the_excerpt( $post_id ),
+				'badge_1_text'     => '',
+				'badge_2_text'     => '',
+				'badge_3_text'     => '',
+				'card_link'        => [
+					'url'         => get_permalink( $post_id ),
+					'is_external' => '',
+					'nofollow'    => '',
+				],
+				'card_button_text' => $button_text,
+			];
+		}
+
+		return $cards;
 	}
 
 	/* ------------------------------------------------------------------ */
@@ -874,9 +1082,14 @@ class Card_Carousel_Widget extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$cards    = $settings['cards'];
+		$cards    = 'services' === $settings['data_source']
+			? $this->get_service_cards( $settings )
+			: $settings['cards'];
 
 		if ( empty( $cards ) ) {
+			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
+				echo '<div class="sgcc-empty-notice">' . esc_html__( 'No services matched the current filters.', 'sg-card-carousel' ) . '</div>';
+			}
 			return;
 		}
 
