@@ -548,7 +548,17 @@ class Card_Carousel_Widget extends Widget_Base {
 					];
 				}
 
-				$found_ids = get_posts( array_merge( $base_args, [ 'tax_query' => $tax_query ] ) );
+				// The tax_query lookup is cached in a transient below, so it only
+				// runs once every 15 minutes per post type/term combination
+				// instead of on every page load.
+				$cache_key = 'npcc_tax_' . md5( wp_json_encode( [ $post_type, $tax_query ] ) );
+				$found_ids = get_transient( $cache_key );
+
+				if ( false === $found_ids ) {
+					// phpcs:ignore WordPress.DB.SlowDBQuery.slow_db_query_tax_query -- result is cached via set_transient() immediately below.
+					$found_ids = get_posts( array_merge( $base_args, [ 'tax_query' => $tax_query ] ) );
+					set_transient( $cache_key, $found_ids, 15 * MINUTE_IN_SECONDS );
+				}
 			}
 		} elseif ( ! $post_ids ) {
 			$found_ids = get_posts( $base_args );
