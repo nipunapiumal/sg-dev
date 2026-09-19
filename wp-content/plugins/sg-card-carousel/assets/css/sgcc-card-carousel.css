@@ -110,6 +110,25 @@ a.sgcc-card:hover {
 	color: #6b7280;
 }
 
+.sgcc-card__more {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	margin-top: 14px;
+	font-size: 13px;
+	font-weight: 600;
+	color: #111827;
+}
+
+.sgcc-card__more-arrow {
+	font-style: normal;
+	transition: transform 0.2s ease;
+}
+
+a.sgcc-card:hover .sgcc-card__more-arrow {
+	transform: translateX(3px);
+}
+
 /* Image overlay card style */
 .sgcc-card--overlay {
 	position: relative;

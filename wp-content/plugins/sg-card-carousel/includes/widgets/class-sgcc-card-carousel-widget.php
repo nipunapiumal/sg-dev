@@ -90,9 +90,20 @@ class Card_Carousel_Widget extends Widget_Base {
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'manual',
 				'options' => [
-					'manual'   => esc_html__( 'Manual', 'sg-card-carousel' ),
-					'services' => esc_html__( 'Services (Dynamic)', 'sg-card-carousel' ),
+					'manual' => esc_html__( 'Manual', 'sg-card-carousel' ),
+					'posts'  => esc_html__( 'Posts (Dynamic)', 'sg-card-carousel' ),
 				],
+			]
+		);
+
+		$this->add_control(
+			'description_limit',
+			[
+				'label'       => esc_html__( 'Description Character Limit', 'sg-card-carousel' ),
+				'type'        => Controls_Manager::NUMBER,
+				'default'     => 120,
+				'min'         => 0,
+				'description' => esc_html__( 'Truncates the description on every card. Use 0 for no limit.', 'sg-card-carousel' ),
 			]
 		);
 
@@ -229,10 +240,11 @@ class Card_Carousel_Widget extends Widget_Base {
 		$repeater->add_control(
 			'card_button_text',
 			[
-				'label'       => esc_html__( 'Button Text (Image Overlay style)', 'sg-card-carousel' ),
+				'label'       => esc_html__( 'Button / Link Text', 'sg-card-carousel' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => false,
 				'default'     => esc_html__( 'Explore Now', 'sg-card-carousel' ),
+				'description' => esc_html__( 'Shown as a button on the Image Overlay style, or a text link at the end of the Media & Text style. Leave empty to hide it.', 'sg-card-carousel' ),
 				'dynamic'     => [ 'active' => true ],
 			]
 		);
@@ -263,59 +275,72 @@ class Card_Carousel_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
-			'heading_services_source',
+			'heading_posts_source',
 			[
-				'label'     => esc_html__( 'Services Source', 'sg-card-carousel' ),
+				'label'     => esc_html__( 'Posts Source', 'sg-card-carousel' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-				'condition' => [ 'data_source' => 'services' ],
+				'condition' => [ 'data_source' => 'posts' ],
 			]
 		);
 
 		$this->add_control(
-			'services_categories',
+			'posts_post_type',
+			[
+				'label'       => esc_html__( 'Post Type', 'sg-card-carousel' ),
+				'type'        => Controls_Manager::SELECT,
+				'label_block' => true,
+				'default'     => 'post',
+				'options'     => $this->get_post_type_options(),
+				'condition'   => [ 'data_source' => 'posts' ],
+			]
+		);
+
+		$this->add_control(
+			'posts_categories',
 			[
 				'label'       => esc_html__( 'Filter by Category', 'sg-card-carousel' ),
 				'type'        => Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'label_block' => true,
-				'options'     => $this->get_service_category_options(),
-				'description' => esc_html__( 'Leave empty to include services from every category.', 'sg-card-carousel' ),
-				'condition'   => [ 'data_source' => 'services' ],
+				'options'     => $this->get_all_category_options(),
+				'description' => esc_html__( 'Terms from every category/taxonomy on the site — pick the ones that match the post type above. Leave empty to include everything of that post type.', 'sg-card-carousel' ),
+				'condition'   => [ 'data_source' => 'posts' ],
 			]
 		);
 
 		$this->add_control(
-			'services_posts',
+			'posts_specific',
 			[
-				'label'       => esc_html__( 'Select Specific Services', 'sg-card-carousel' ),
+				'label'       => esc_html__( 'Select Specific Posts', 'sg-card-carousel' ),
 				'type'        => Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'label_block' => true,
-				'options'     => $this->get_service_post_options(),
-				'description' => esc_html__( 'Optional — hand-pick individual services in addition to the category filter above.', 'sg-card-carousel' ),
-				'condition'   => [ 'data_source' => 'services' ],
+				'options'     => $this->get_all_post_options(),
+				'description' => esc_html__( 'Optional — hand-pick individual posts, of any post type, in addition to the category filter above.', 'sg-card-carousel' ),
+				'condition'   => [ 'data_source' => 'posts' ],
 			]
 		);
 
 		$this->add_control(
-			'services_count',
+			'posts_count',
 			[
-				'label'       => esc_html__( 'Number of Services', 'sg-card-carousel' ),
+				'label'       => esc_html__( 'Number of Posts', 'sg-card-carousel' ),
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => -1,
-				'description' => esc_html__( 'Maximum number of services to show. Use -1 for no limit.', 'sg-card-carousel' ),
-				'condition'   => [ 'data_source' => 'services' ],
+				'description' => esc_html__( 'Maximum number of posts to show. Use -1 for no limit.', 'sg-card-carousel' ),
+				'condition'   => [ 'data_source' => 'posts' ],
 			]
 		);
 
 		$this->add_control(
-			'services_button_text',
+			'posts_button_text',
 			[
-				'label'     => esc_html__( 'Button Text (Image Overlay style)', 'sg-card-carousel' ),
-				'type'      => Controls_Manager::TEXT,
-				'default'   => esc_html__( 'Learn More', 'sg-card-carousel' ),
-				'condition' => [ 'data_source' => 'services' ],
+				'label'       => esc_html__( 'Button / Link Text', 'sg-card-carousel' ),
+				'type'        => Controls_Manager::TEXT,
+				'default'     => esc_html__( 'Learn More', 'sg-card-carousel' ),
+				'description' => esc_html__( 'Shown as a button on the Image Overlay style, or a text link at the end of the Media & Text style. Leave empty to hide it.', 'sg-card-carousel' ),
+				'condition'   => [ 'data_source' => 'posts' ],
 			]
 		);
 
@@ -331,23 +356,63 @@ class Card_Carousel_Widget extends Widget_Base {
 	}
 
 	/**
-	 * Build the "Filter by Category" options from the cpt_services_group taxonomy.
+	 * Only worth building live DB-backed option lists when something is
+	 * actually going to render them — Elementor strips 'options' from every
+	 * control on plain frontend requests anyway (Performance::should_optimize_controls()).
 	 */
-	private function get_service_category_options() {
-		if ( ! taxonomy_exists( 'cpt_services_group' ) ) {
+	private function is_editor_context() {
+		return ! \Elementor\Core\Frontend\Performance::should_optimize_controls();
+	}
+
+	/**
+	 * Every public, browsable post type on the site (i.e. valid sources for
+	 * the "Posts (Dynamic)" card source).
+	 */
+	private function get_post_type_options() {
+		if ( ! $this->is_editor_context() ) {
 			return [];
 		}
 
-		$terms = get_terms( [
-			'taxonomy'   => 'cpt_services_group',
-			'hide_empty' => false,
-		] );
+		$post_types = get_post_types( [ 'public' => true, 'show_ui' => true ], 'objects' );
+		unset( $post_types['attachment'], $post_types['elementor_library'] );
 
 		$options = [];
 
-		if ( ! is_wp_error( $terms ) ) {
+		foreach ( $post_types as $post_type ) {
+			$options[ $post_type->name ] = $post_type->labels->singular_name ? $post_type->labels->singular_name : $post_type->label;
+		}
+
+		return $options;
+	}
+
+	/**
+	 * Every term from every public taxonomy on the site, labelled with its
+	 * taxonomy so cards from any post type/category combination can be picked.
+	 */
+	private function get_all_category_options() {
+		if ( ! $this->is_editor_context() ) {
+			return [];
+		}
+
+		$taxonomies = get_taxonomies( [ 'public' => true ], 'objects' );
+		$options    = [];
+
+		foreach ( $taxonomies as $taxonomy ) {
+			if ( 'post_format' === $taxonomy->name ) {
+				continue;
+			}
+
+			$terms = get_terms( [
+				'taxonomy'   => $taxonomy->name,
+				'hide_empty' => false,
+			] );
+
+			if ( is_wp_error( $terms ) ) {
+				continue;
+			}
+
 			foreach ( $terms as $term ) {
-				$options[ $term->term_id ] = $term->name;
+				$options[ $term->term_id ] = $term->name . ' (' . $taxonomy->label . ')';
 			}
 		}
 
@@ -355,15 +420,23 @@ class Card_Carousel_Widget extends Widget_Base {
 	}
 
 	/**
-	 * Build the "Select Specific Services" options from the cpt_services post type.
+	 * Every published post across every public post type, labelled with its
+	 * post type, for the "Select Specific Posts" control.
 	 */
-	private function get_service_post_options() {
-		if ( ! post_type_exists( 'cpt_services' ) ) {
+	private function get_all_post_options() {
+		if ( ! $this->is_editor_context() ) {
+			return [];
+		}
+
+		$post_types = array_keys( get_post_types( [ 'public' => true, 'show_ui' => true ], 'names' ) );
+		$post_types = array_values( array_diff( $post_types, [ 'attachment', 'elementor_library' ] ) );
+
+		if ( empty( $post_types ) ) {
 			return [];
 		}
 
 		$posts = get_posts( [
-			'post_type'      => 'cpt_services',
+			'post_type'      => $post_types,
 			'post_status'    => 'publish',
 			'posts_per_page' => -1,
 			'orderby'        => 'title',
@@ -373,27 +446,62 @@ class Card_Carousel_Widget extends Widget_Base {
 		$options = [];
 
 		foreach ( $posts as $post ) {
-			$options[ $post->ID ] = $post->post_title;
+			$post_type_object = get_post_type_object( $post->post_type );
+			$type_label        = $post_type_object ? $post_type_object->labels->singular_name : $post->post_type;
+			$options[ $post->ID ] = $post->post_title . ' (' . $type_label . ')';
 		}
 
 		return $options;
 	}
 
 	/**
-	 * Build a repeater-shaped card array for each matching Service post, so
+	 * All public taxonomy term names attached to a post, across whichever
+	 * taxonomies its post type actually has — used as the card's subtitle.
+	 */
+	private function get_post_terms_label( $post_id, $post_type ) {
+		$taxonomies = get_object_taxonomies( $post_type, 'names' );
+		$names      = [];
+
+		foreach ( $taxonomies as $taxonomy ) {
+			if ( 'post_format' === $taxonomy ) {
+				continue;
+			}
+
+			$taxonomy_object = get_taxonomy( $taxonomy );
+
+			if ( ! $taxonomy_object || ! $taxonomy_object->public ) {
+				continue;
+			}
+
+			$terms = get_the_terms( $post_id, $taxonomy );
+
+			if ( $terms && ! is_wp_error( $terms ) ) {
+				foreach ( $terms as $term ) {
+					$names[] = $term->name;
+				}
+			}
+		}
+
+		return implode( ', ', array_unique( $names ) );
+	}
+
+	/**
+	 * Build a repeater-shaped card array for each matching post, so
 	 * render_card_default()/render_card_overlay() can be reused unchanged.
 	 */
-	private function get_service_cards( $settings ) {
-		if ( ! post_type_exists( 'cpt_services' ) ) {
+	private function get_dynamic_posts_cards( $settings ) {
+		$post_type = ! empty( $settings['posts_post_type'] ) ? $settings['posts_post_type'] : 'post';
+
+		if ( ! post_type_exists( $post_type ) ) {
 			return [];
 		}
 
-		$category_ids = ! empty( $settings['services_categories'] ) ? array_map( 'absint', (array) $settings['services_categories'] ) : [];
-		$post_ids     = ! empty( $settings['services_posts'] ) ? array_map( 'absint', (array) $settings['services_posts'] ) : [];
-		$limit        = isset( $settings['services_count'] ) ? (int) $settings['services_count'] : -1;
+		$category_ids = ! empty( $settings['posts_categories'] ) ? array_map( 'absint', (array) $settings['posts_categories'] ) : [];
+		$post_ids     = ! empty( $settings['posts_specific'] ) ? array_map( 'absint', (array) $settings['posts_specific'] ) : [];
+		$limit        = isset( $settings['posts_count'] ) ? (int) $settings['posts_count'] : -1;
 
 		$base_args = [
-			'post_type'      => 'cpt_services',
+			'post_type'      => $post_type,
 			'post_status'    => 'publish',
 			'posts_per_page' => -1,
 			'orderby'        => 'menu_order date',
@@ -402,20 +510,36 @@ class Card_Carousel_Widget extends Widget_Base {
 			'no_found_rows'  => true,
 		];
 
+		$found_ids = [];
+
 		if ( $category_ids ) {
-			$found_ids = get_posts( array_merge( $base_args, [
-				'tax_query' => [
-					[
-						'taxonomy' => 'cpt_services_group',
+			// Group the selected terms by their own taxonomy — the same
+			// multi-select can mix terms from any taxonomy on the site.
+			$terms_by_taxonomy = [];
+
+			foreach ( $category_ids as $term_id ) {
+				$term = get_term( $term_id );
+
+				if ( $term && ! is_wp_error( $term ) ) {
+					$terms_by_taxonomy[ $term->taxonomy ][] = $term_id;
+				}
+			}
+
+			if ( $terms_by_taxonomy ) {
+				$tax_query = [ 'relation' => 'OR' ];
+
+				foreach ( $terms_by_taxonomy as $taxonomy => $term_ids ) {
+					$tax_query[] = [
+						'taxonomy' => $taxonomy,
 						'field'    => 'term_id',
-						'terms'    => $category_ids,
-					],
-				],
-			] ) );
+						'terms'    => $term_ids,
+					];
+				}
+
+				$found_ids = get_posts( array_merge( $base_args, [ 'tax_query' => $tax_query ] ) );
+			}
 		} elseif ( ! $post_ids ) {
 			$found_ids = get_posts( $base_args );
-		} else {
-			$found_ids = [];
 		}
 
 		if ( $post_ids ) {
@@ -430,9 +554,8 @@ class Card_Carousel_Widget extends Widget_Base {
 			$found_ids = array_slice( $found_ids, 0, $limit );
 		}
 
-		$button_text = ! empty( $settings['services_button_text'] ) ? $settings['services_button_text'] : '';
-
-		$cards = [];
+		$button_text = ! empty( $settings['posts_button_text'] ) ? $settings['posts_button_text'] : '';
+		$cards       = [];
 
 		foreach ( $found_ids as $post_id ) {
 			$post = get_post( $post_id );
@@ -441,16 +564,14 @@ class Card_Carousel_Widget extends Widget_Base {
 				continue;
 			}
 
-			$terms       = get_the_terms( $post_id, 'cpt_services_group' );
-			$category    = ( $terms && ! is_wp_error( $terms ) ) ? implode( ', ', wp_list_pluck( $terms, 'name' ) ) : '';
 			$thumbnail_id = get_post_thumbnail_id( $post_id );
 
 			$cards[] = [
-				'_id'              => 'svc' . $post_id,
+				'_id'              => 'p' . $post_id,
 				'card_image'       => $thumbnail_id ? [ 'id' => $thumbnail_id ] : [],
 				'card_title'       => get_the_title( $post_id ),
 				'card_flag'        => '',
-				'card_subtitle'    => $category,
+				'card_subtitle'    => $this->get_post_terms_label( $post_id, $post->post_type ),
 				'card_description' => get_the_excerpt( $post_id ),
 				'badge_1_text'     => '',
 				'badge_2_text'     => '',
@@ -836,6 +957,26 @@ class Card_Carousel_Widget extends Widget_Base {
 			]
 		);
 
+		$this->add_control(
+			'more_link_color',
+			[
+				'label'     => esc_html__( 'Button / Link Color', 'sg-card-carousel' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#111827',
+				'selectors' => [
+					'{{WRAPPER}} .sgcc-card__more' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_group_control(
+			Group_Control_Typography::get_type(),
+			[
+				'name'     => 'more_link_typography',
+				'selector' => '{{WRAPPER}} .sgcc-card__more',
+			]
+		);
+
 		$this->end_controls_section();
 	}
 
@@ -1082,13 +1223,13 @@ class Card_Carousel_Widget extends Widget_Base {
 
 	protected function render() {
 		$settings = $this->get_settings_for_display();
-		$cards    = 'services' === $settings['data_source']
-			? $this->get_service_cards( $settings )
+		$cards    = 'posts' === $settings['data_source']
+			? $this->get_dynamic_posts_cards( $settings )
 			: $settings['cards'];
 
 		if ( empty( $cards ) ) {
 			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-				echo '<div class="sgcc-empty-notice">' . esc_html__( 'No services matched the current filters.', 'sg-card-carousel' ) . '</div>';
+				echo '<div class="sgcc-empty-notice">' . esc_html__( 'No posts matched the current filters.', 'sg-card-carousel' ) . '</div>';
 			}
 			return;
 		}
@@ -1114,7 +1255,8 @@ class Card_Carousel_Widget extends Widget_Base {
 			'showDots'         => $show_dots,
 		];
 
-		$is_overlay = 'overlay' === $settings['card_style'];
+		$is_overlay        = 'overlay' === $settings['card_style'];
+		$description_limit = isset( $settings['description_limit'] ) ? (int) $settings['description_limit'] : 0;
 
 		$this->add_render_attribute( 'swiper', 'class', 'sgcc-swiper swiper' );
 		$this->add_render_attribute( 'swiper', 'data-sgcc-settings', wp_json_encode( $config ) );
@@ -1124,7 +1266,7 @@ class Card_Carousel_Widget extends Widget_Base {
 				<div class="swiper-wrapper">
 					<?php foreach ( $cards as $card ) : ?>
 						<div class="swiper-slide">
-							<?php $is_overlay ? $this->render_card_overlay( $card ) : $this->render_card_default( $card ); ?>
+							<?php $is_overlay ? $this->render_card_overlay( $card ) : $this->render_card_default( $card, $description_limit ); ?>
 						</div>
 					<?php endforeach; ?>
 				</div>
@@ -1156,7 +1298,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		return ! empty( $card['card_image']['url'] ) ? $card['card_image']['url'] : '';
 	}
 
-	private function render_card_default( $card ) {
+	private function render_card_default( $card, $description_limit = 0 ) {
 		$has_link = ! empty( $card['card_link']['url'] );
 
 		if ( $has_link ) {
@@ -1209,7 +1351,12 @@ class Card_Carousel_Widget extends Widget_Base {
 		}
 
 		if ( ! empty( $card['card_description'] ) ) {
-			echo '<p class="sgcc-card__desc">' . esc_html( $card['card_description'] ) . '</p>';
+			$description = $description_limit > 0 ? wp_html_excerpt( $card['card_description'], $description_limit, '…' ) : $card['card_description'];
+			echo '<p class="sgcc-card__desc">' . esc_html( $description ) . '</p>';
+		}
+
+		if ( ! empty( $card['card_button_text'] ) ) {
+			echo '<span class="sgcc-card__more">' . esc_html( $card['card_button_text'] ) . ' <i class="sgcc-card__more-arrow" aria-hidden="true">&rarr;</i></span>';
 		}
 
 		echo '</div>'; // .sgcc-card__body
