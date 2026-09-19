@@ -46,13 +46,16 @@ a.sgcc-card:hover {
 	height: 280px;
 	overflow: hidden;
 	background-color: #f3f4f6;
+	flex-shrink: 0;
 }
 
 .sgcc-card__img {
+	display: block;
 	width: 100%;
 	height: 100%;
+	max-width: none;
 	object-fit: cover;
-	display: block;
+	object-position: center;
 }
 
 .sgcc-card__body {
