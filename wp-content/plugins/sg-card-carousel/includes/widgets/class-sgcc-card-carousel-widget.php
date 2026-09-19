@@ -334,6 +334,18 @@ class Card_Carousel_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'posts_show_category',
+			[
+				'label'        => esc_html__( 'Show Category', 'sg-card-carousel' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+				'description'  => esc_html__( 'Displays each post\'s category/taxonomy term(s) as the card subtitle.', 'sg-card-carousel' ),
+				'condition'    => [ 'data_source' => 'posts' ],
+			]
+		);
+
+		$this->add_control(
 			'posts_button_text',
 			[
 				'label'       => esc_html__( 'Button / Link Text', 'sg-card-carousel' ),
@@ -554,8 +566,9 @@ class Card_Carousel_Widget extends Widget_Base {
 			$found_ids = array_slice( $found_ids, 0, $limit );
 		}
 
-		$button_text = ! empty( $settings['posts_button_text'] ) ? $settings['posts_button_text'] : '';
-		$cards       = [];
+		$button_text   = ! empty( $settings['posts_button_text'] ) ? $settings['posts_button_text'] : '';
+		$show_category = ! isset( $settings['posts_show_category'] ) || 'yes' === $settings['posts_show_category'];
+		$cards         = [];
 
 		foreach ( $found_ids as $post_id ) {
 			$post = get_post( $post_id );
@@ -571,7 +584,7 @@ class Card_Carousel_Widget extends Widget_Base {
 				'card_image'       => $thumbnail_id ? [ 'id' => $thumbnail_id ] : [],
 				'card_title'       => get_the_title( $post_id ),
 				'card_flag'        => '',
-				'card_subtitle'    => $this->get_post_terms_label( $post_id, $post->post_type ),
+				'card_subtitle'    => $show_category ? $this->get_post_terms_label( $post_id, $post->post_type ) : '',
 				'card_description' => get_the_excerpt( $post_id ),
 				'badge_1_text'     => '',
 				'badge_2_text'     => '',

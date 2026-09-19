@@ -1,10 +1,10 @@
 <?php
 /**
- * Plugin Name: Modern Card Carousel for Elementor
+ * Plugin Name: Card Carousel for Elementor
  * Description: Adds a "Card Carousel" widget to Elementor — a Swiper-powered carousel of media cards (image, badges, title, subtitle, description, link), styled after a product/vehicle showcase card.
- * Version: 1.5.0
+ * Version: 1.6.0
  * Author: Nipuna Pathirana
- * Text Domain: modern-card-carousel
+ * Text Domain: sg-card-carousel
  * Requires Plugins: elementor
  * Elementor tested up to: 4.2
  * Elementor Pro tested up to: 4.2
@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'SGCC_VERSION', '1.5.0' );
+define( 'SGCC_VERSION', '1.6.0' );
 define( 'SGCC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'SGCC_URL', plugin_dir_url( __FILE__ ) );
 
@@ -26,7 +26,7 @@ function sgcc_admin_notice_missing_elementor() {
 		return;
 	}
 	echo '<div class="notice notice-warning"><p>' .
-		esc_html__( '"Modern Card Carousel for Elementor" requires Elementor to be installed and active.', 'modern-card-carousel' ) .
+		esc_html__( '"Card Carousel for Elementor" requires Elementor to be installed and active.', 'sg-card-carousel' ) .
 		'</p></div>';
 }
 
@@ -35,9 +35,9 @@ function sgcc_admin_notice_missing_elementor() {
  */
 function sgcc_register_category( $elements_manager ) {
 	$elements_manager->add_category(
-		'modern-widgets',
+		'sg-widgets',
 		[
-			'title' => esc_html__( 'Modern Widgets', 'modern-card-carousel' ),
+			'title' => esc_html__( 'SG Widgets', 'sg-card-carousel' ),
 			'icon'  => 'fa fa-plug',
 		]
 	);
@@ -50,15 +50,15 @@ function sgcc_register_widgets( $widgets_manager ) {
 
 function sgcc_register_assets() {
 	wp_register_style(
-		'modern-card-carousel',
-		SGCC_URL . 'assets/css/modern-card-carousel.css',
+		'sgcc-card-carousel',
+		SGCC_URL . 'assets/css/sgcc-card-carousel.css',
 		[ 'e-swiper' ],
 		SGCC_VERSION
 	);
 
 	wp_register_script(
-		'modern-card-carousel',
-		SGCC_URL . 'assets/js/modern-card-carousel.js',
+		'sgcc-card-carousel',
+		SGCC_URL . 'assets/js/sgcc-card-carousel.js',
 		[ 'elementor-frontend', 'swiper' ],
 		SGCC_VERSION,
 		true
