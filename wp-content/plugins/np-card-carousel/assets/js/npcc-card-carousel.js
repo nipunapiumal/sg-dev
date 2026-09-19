@@ -2,7 +2,7 @@
 	'use strict';
 
 	function initCarousel( $scope ) {
-		var $swiper = $scope.find( '.sgcc-swiper' ).first();
+		var $swiper = $scope.find( '.npcc-swiper' ).first();
 
 		if ( ! $swiper.length || ! window.Swiper ) {
 			return;
@@ -10,7 +10,7 @@
 
 		var config = {};
 		try {
-			config = JSON.parse( $swiper.attr( 'data-sgcc-settings' ) || '{}' );
+			config = JSON.parse( $swiper.attr( 'data-npcc-settings' ) || '{}' );
 		} catch ( e ) {
 			config = {};
 		}
@@ -39,27 +39,27 @@
 
 		if ( config.showArrows ) {
 			swiperOptions.navigation = {
-				nextEl: $scope.find( '.sgcc-nav--next' ).get( 0 ),
-				prevEl: $scope.find( '.sgcc-nav--prev' ).get( 0 ),
+				nextEl: $scope.find( '.npcc-nav--next' ).get( 0 ),
+				prevEl: $scope.find( '.npcc-nav--prev' ).get( 0 ),
 			};
 		}
 
 		if ( config.showDots ) {
 			swiperOptions.pagination = {
-				el: $swiper.find( '.sgcc-pagination' ).get( 0 ),
+				el: $swiper.find( '.npcc-pagination' ).get( 0 ),
 				clickable: true,
 			};
 		}
 
-		if ( $swiper.data( 'sgcc-swiper-instance' ) ) {
-			$swiper.data( 'sgcc-swiper-instance' ).destroy( true, true );
+		if ( $swiper.data( 'npcc-swiper-instance' ) ) {
+			$swiper.data( 'npcc-swiper-instance' ).destroy( true, true );
 		}
 
 		var instance = new window.Swiper( $swiper.get( 0 ), swiperOptions );
-		$swiper.data( 'sgcc-swiper-instance', instance );
+		$swiper.data( 'npcc-swiper-instance', instance );
 	}
 
 	window.addEventListener( 'elementor/frontend/init', function () {
-		elementorFrontend.hooks.addAction( 'frontend/element_ready/sgcc-card-carousel.default', initCarousel );
+		elementorFrontend.hooks.addAction( 'frontend/element_ready/npcc-card-carousel.default', initCarousel );
 	} );
 }() );
