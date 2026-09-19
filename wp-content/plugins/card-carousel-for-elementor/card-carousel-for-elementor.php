@@ -2,9 +2,9 @@
 /**
  * Plugin Name: Card Carousel for Elementor
  * Description: Adds a "Card Carousel" widget to Elementor — a Swiper-powered carousel of media cards (image, badges, title, subtitle, description, link), styled after a product/vehicle showcase card.
- * Version: 1.7.0
+ * Version: 1.7.1
  * Author: Nipuna Pathirana
- * Text Domain: np-card-carousel
+ * Text Domain: card-carousel-for-elementor
  * Requires Plugins: elementor
  * Requires at least: 5.8
  * Requires PHP: 8.0
@@ -18,7 +18,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'NPCC_VERSION', '1.7.0' );
+define( 'NPCC_VERSION', '1.7.1' );
 define( 'NPCC_MIN_PHP', '8.0' );
 define( 'NPCC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NPCC_URL', plugin_dir_url( __FILE__ ) );
@@ -31,7 +31,7 @@ function npcc_admin_notice_missing_elementor() {
 		return;
 	}
 	echo '<div class="notice notice-warning"><p>' .
-		esc_html__( '"Card Carousel for Elementor" requires Elementor to be installed and active.', 'np-card-carousel' ) .
+		esc_html__( '"Card Carousel for Elementor" requires Elementor to be installed and active.', 'card-carousel-for-elementor' ) .
 		'</p></div>';
 }
 
@@ -46,7 +46,7 @@ function npcc_admin_notice_php_version() {
 	echo '<div class="notice notice-error"><p>' .
 		sprintf(
 			/* translators: 1: required PHP version, 2: current PHP version */
-			esc_html__( '"Card Carousel for Elementor" requires PHP %1$s or higher. This site is running PHP %2$s.', 'np-card-carousel' ),
+			esc_html__( '"Card Carousel for Elementor" requires PHP %1$s or higher. This site is running PHP %2$s.', 'card-carousel-for-elementor' ),
 			esc_html( NPCC_MIN_PHP ),
 			esc_html( PHP_VERSION )
 		) .
@@ -60,7 +60,7 @@ function npcc_register_category( $elements_manager ) {
 	$elements_manager->add_category(
 		'np-widgets',
 		[
-			'title' => esc_html__( 'NP Widgets', 'np-card-carousel' ),
+			'title' => esc_html__( 'NP Widgets', 'card-carousel-for-elementor' ),
 			'icon'  => 'fa fa-plug',
 		]
 	);

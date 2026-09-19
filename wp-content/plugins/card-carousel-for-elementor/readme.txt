@@ -2,9 +2,9 @@
 Contributors: nipunapathirana
 Tags: elementor, carousel, slider, cards, swiper
 Requires at least: 5.8
-Tested up to: 6.6
+Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.7.0
+Stable tag: 1.7.1
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -32,7 +32,7 @@ Features:
 
 == Installation ==
 
-1. Upload the `np-card-carousel` folder to the `/wp-content/plugins/` directory, or install the plugin ZIP through **Plugins → Add New → Upload Plugin** in your WordPress admin.
+1. Upload the `card-carousel-for-elementor` folder to the `/wp-content/plugins/` directory, or install the plugin ZIP through **Plugins → Add New → Upload Plugin** in your WordPress admin.
 2. Activate the plugin through the **Plugins** screen in WordPress.
 3. Make sure Elementor is installed and active.
 4. Edit any page with Elementor, search for **Card Carousel** in the widget panel, and drag it onto the page.
@@ -53,9 +53,13 @@ Yes. When using the **Posts (Dynamic)** source, turn off the **Show Category** s
 
 == Changelog ==
 
+= 1.7.1 =
+* Fixed the plugin slug to match the WordPress.org listing: main file, folder, and text domain are now card-carousel-for-elementor.
+* Updated "Tested up to" to 7.1.
+
 = 1.7.0 =
 * Raised the minimum required PHP version to 8.0, with an admin notice (instead of a fatal error) on unsupported hosting.
-* Renamed the plugin from "SG Card Carousel" to "Card Carousel for Elementor" (np-card-carousel) internally — files, classes, constants, hooks, and CSS classes.
+* Renamed the plugin internally — files, classes, constants, hooks, and CSS classes.
 
 = 1.6.1 =
 * Fixed image cropping (object-fit/object-position) to prevent stretching regardless of the selected image size.
@@ -89,5 +93,5 @@ Yes. When using the **Posts (Dynamic)** source, turn off the **Show Category** s
 
 == Upgrade Notice ==
 
-= 1.6.1 =
-Fixes an asset-loading bug and image cropping — recommended for all users.
+= 1.7.1 =
+Fixes the plugin slug/text-domain mismatch and stale "Tested up to" header flagged by the WordPress.org plugin check.

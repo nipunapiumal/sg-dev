@@ -25,7 +25,7 @@ class Card_Carousel_Widget extends Widget_Base {
 	}
 
 	public function get_title() {
-		return esc_html__( 'Card Carousel', 'np-card-carousel' );
+		return esc_html__( 'Card Carousel', 'card-carousel-for-elementor' );
 	}
 
 	public function get_icon() {
@@ -66,19 +66,19 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_cards',
 			[
-				'label' => esc_html__( 'Cards', 'np-card-carousel' ),
+				'label' => esc_html__( 'Cards', 'card-carousel-for-elementor' ),
 			]
 		);
 
 		$this->add_control(
 			'card_style',
 			[
-				'label'   => esc_html__( 'Card Style', 'np-card-carousel' ),
+				'label'   => esc_html__( 'Card Style', 'card-carousel-for-elementor' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'default',
 				'options' => [
-					'default' => esc_html__( 'Media & Text', 'np-card-carousel' ),
-					'overlay' => esc_html__( 'Image Overlay', 'np-card-carousel' ),
+					'default' => esc_html__( 'Media & Text', 'card-carousel-for-elementor' ),
+					'overlay' => esc_html__( 'Image Overlay', 'card-carousel-for-elementor' ),
 				],
 			]
 		);
@@ -86,12 +86,12 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'data_source',
 			[
-				'label'   => esc_html__( 'Card Source', 'np-card-carousel' ),
+				'label'   => esc_html__( 'Card Source', 'card-carousel-for-elementor' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'manual',
 				'options' => [
-					'manual' => esc_html__( 'Manual', 'np-card-carousel' ),
-					'posts'  => esc_html__( 'Posts (Dynamic)', 'np-card-carousel' ),
+					'manual' => esc_html__( 'Manual', 'card-carousel-for-elementor' ),
+					'posts'  => esc_html__( 'Posts (Dynamic)', 'card-carousel-for-elementor' ),
 				],
 			]
 		);
@@ -99,11 +99,11 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'description_limit',
 			[
-				'label'       => esc_html__( 'Description Character Limit', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Description Character Limit', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => 120,
 				'min'         => 0,
-				'description' => esc_html__( 'Truncates the description on every card. Use 0 for no limit.', 'np-card-carousel' ),
+				'description' => esc_html__( 'Truncates the description on every card. Use 0 for no limit.', 'card-carousel-for-elementor' ),
 			]
 		);
 
@@ -112,7 +112,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$repeater->add_control(
 			'card_image',
 			[
-				'label'   => esc_html__( 'Image', 'np-card-carousel' ),
+				'label'   => esc_html__( 'Image', 'card-carousel-for-elementor' ),
 				'type'    => Controls_Manager::MEDIA,
 				'default' => [
 					'url' => Utils::get_placeholder_image_src(),
@@ -123,10 +123,10 @@ class Card_Carousel_Widget extends Widget_Base {
 		$repeater->add_control(
 			'card_title',
 			[
-				'label'       => esc_html__( 'Title', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Title', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => true,
-				'default'     => esc_html__( 'Porsche 911', 'np-card-carousel' ),
+				'default'     => esc_html__( 'Porsche 911', 'card-carousel-for-elementor' ),
 				'dynamic'     => [ 'active' => true ],
 			]
 		);
@@ -134,12 +134,12 @@ class Card_Carousel_Widget extends Widget_Base {
 		$repeater->add_control(
 			'card_flag',
 			[
-				'label'       => esc_html__( 'Flag / Emoji (Image Overlay style)', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Flag / Emoji (Image Overlay style)', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => false,
 				'default'     => '',
 				'placeholder' => '🇹🇷',
-				'description' => esc_html__( 'Shown next to the title in the Image Overlay card style.', 'np-card-carousel' ),
+				'description' => esc_html__( 'Shown next to the title in the Image Overlay card style.', 'card-carousel-for-elementor' ),
 				'dynamic'     => [ 'active' => true ],
 			]
 		);
@@ -147,11 +147,11 @@ class Card_Carousel_Widget extends Widget_Base {
 		$repeater->add_control(
 			'card_subtitle',
 			[
-				'label'       => esc_html__( 'Subtitle', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Subtitle', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => true,
-				'default'     => esc_html__( 'GT3 RS', 'np-card-carousel' ),
-				'description' => esc_html__( 'In the Image Overlay style this renders as the stats line under the title (e.g. "1,991 Hotels • 42 Packages").', 'np-card-carousel' ),
+				'default'     => esc_html__( 'GT3 RS', 'card-carousel-for-elementor' ),
+				'description' => esc_html__( 'In the Image Overlay style this renders as the stats line under the title (e.g. "1,991 Hotels • 42 Packages").', 'card-carousel-for-elementor' ),
 				'dynamic'     => [ 'active' => true ],
 			]
 		);
@@ -159,10 +159,10 @@ class Card_Carousel_Widget extends Widget_Base {
 		$repeater->add_control(
 			'card_description',
 			[
-				'label'       => esc_html__( 'Description', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Description', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 3,
-				'default'     => esc_html__( 'Timeless, iconic, and unapologetically analog — this embodies the soul of its finest era.', 'np-card-carousel' ),
+				'default'     => esc_html__( 'Timeless, iconic, and unapologetically analog — this embodies the soul of its finest era.', 'card-carousel-for-elementor' ),
 				'dynamic'     => [ 'active' => true ],
 			]
 		);
@@ -170,7 +170,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$repeater->add_control(
 			'heading_badges',
 			[
-				'label'     => esc_html__( 'Badges', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Badges', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -178,9 +178,9 @@ class Card_Carousel_Widget extends Widget_Base {
 
 		foreach ( [ 1, 2, 3 ] as $i ) {
 			$defaults = [
-				1 => [ 'icon' => 'fas fa-circle', 'text' => esc_html__( 'Ice grey', 'np-card-carousel' ) ],
-				2 => [ 'icon' => 'far fa-clock', 'text' => esc_html__( '3.2s', 'np-card-carousel' ) ],
-				3 => [ 'icon' => 'fas fa-cog', 'text' => esc_html__( 'Manual', 'np-card-carousel' ) ],
+				1 => [ 'icon' => 'fas fa-circle', 'text' => esc_html__( 'Ice grey', 'card-carousel-for-elementor' ) ],
+				2 => [ 'icon' => 'far fa-clock', 'text' => esc_html__( '3.2s', 'card-carousel-for-elementor' ) ],
+				3 => [ 'icon' => 'fas fa-cog', 'text' => esc_html__( 'Manual', 'card-carousel-for-elementor' ) ],
 			];
 
 			$repeater->add_control(
@@ -188,7 +188,7 @@ class Card_Carousel_Widget extends Widget_Base {
 				[
 					'label'            => sprintf(
 						/* translators: %d: badge number */
-						esc_html__( 'Badge %d Icon', 'np-card-carousel' ),
+						esc_html__( 'Badge %d Icon', 'card-carousel-for-elementor' ),
 						$i
 					),
 					'type'             => Controls_Manager::ICONS,
@@ -206,7 +206,7 @@ class Card_Carousel_Widget extends Widget_Base {
 				[
 					'label'       => sprintf(
 						/* translators: %d: badge number */
-						esc_html__( 'Badge %d Text', 'np-card-carousel' ),
+						esc_html__( 'Badge %d Text', 'card-carousel-for-elementor' ),
 						$i
 					),
 					'type'        => Controls_Manager::TEXT,
@@ -220,7 +220,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$repeater->add_control(
 			'heading_link',
 			[
-				'label'     => esc_html__( 'Link', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Link', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -229,10 +229,10 @@ class Card_Carousel_Widget extends Widget_Base {
 		$repeater->add_control(
 			'card_link',
 			[
-				'label'       => esc_html__( 'Link', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Link', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::URL,
 				'label_block' => true,
-				'placeholder' => esc_html__( 'https://your-link.com', 'np-card-carousel' ),
+				'placeholder' => esc_html__( 'https://your-link.com', 'card-carousel-for-elementor' ),
 				'dynamic'     => [ 'active' => true ],
 			]
 		);
@@ -240,11 +240,11 @@ class Card_Carousel_Widget extends Widget_Base {
 		$repeater->add_control(
 			'card_button_text',
 			[
-				'label'       => esc_html__( 'Button / Link Text', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Button / Link Text', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
 				'label_block' => false,
-				'default'     => esc_html__( 'Explore Now', 'np-card-carousel' ),
-				'description' => esc_html__( 'Shown as a button on the Image Overlay style, or a text link at the end of the Media & Text style. Leave empty to hide it.', 'np-card-carousel' ),
+				'default'     => esc_html__( 'Explore Now', 'card-carousel-for-elementor' ),
+				'description' => esc_html__( 'Shown as a button on the Image Overlay style, or a text link at the end of the Media & Text style. Leave empty to hide it.', 'card-carousel-for-elementor' ),
 				'dynamic'     => [ 'active' => true ],
 			]
 		);
@@ -252,21 +252,21 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'cards',
 			[
-				'label'       => esc_html__( 'Cards', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Cards', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::REPEATER,
 				'fields'      => $repeater->get_controls(),
 				'default'     => [
 					[
-						'card_title'    => esc_html__( 'Porsche 911', 'np-card-carousel' ),
-						'card_subtitle' => esc_html__( 'GT3 RS', 'np-card-carousel' ),
+						'card_title'    => esc_html__( 'Porsche 911', 'card-carousel-for-elementor' ),
+						'card_subtitle' => esc_html__( 'GT3 RS', 'card-carousel-for-elementor' ),
 					],
 					[
-						'card_title'    => esc_html__( 'Porsche 718', 'np-card-carousel' ),
-						'card_subtitle' => esc_html__( 'Cayman GT4', 'np-card-carousel' ),
+						'card_title'    => esc_html__( 'Porsche 718', 'card-carousel-for-elementor' ),
+						'card_subtitle' => esc_html__( 'Cayman GT4', 'card-carousel-for-elementor' ),
 					],
 					[
-						'card_title'    => esc_html__( 'Porsche Taycan', 'np-card-carousel' ),
-						'card_subtitle' => esc_html__( 'Turbo S', 'np-card-carousel' ),
+						'card_title'    => esc_html__( 'Porsche Taycan', 'card-carousel-for-elementor' ),
+						'card_subtitle' => esc_html__( 'Turbo S', 'card-carousel-for-elementor' ),
 					],
 				],
 				'title_field' => '{{{ card_title }}} {{{ card_subtitle }}}',
@@ -277,7 +277,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'heading_posts_source',
 			[
-				'label'     => esc_html__( 'Posts Source', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Posts Source', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => [ 'data_source' => 'posts' ],
@@ -287,7 +287,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'posts_post_type',
 			[
-				'label'       => esc_html__( 'Post Type', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Post Type', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::SELECT,
 				'label_block' => true,
 				'default'     => 'post',
@@ -299,12 +299,12 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'posts_categories',
 			[
-				'label'       => esc_html__( 'Filter by Category', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Filter by Category', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'label_block' => true,
 				'options'     => $this->get_all_category_options(),
-				'description' => esc_html__( 'Terms from every category/taxonomy on the site — pick the ones that match the post type above. Leave empty to include everything of that post type.', 'np-card-carousel' ),
+				'description' => esc_html__( 'Terms from every category/taxonomy on the site — pick the ones that match the post type above. Leave empty to include everything of that post type.', 'card-carousel-for-elementor' ),
 				'condition'   => [ 'data_source' => 'posts' ],
 			]
 		);
@@ -312,12 +312,12 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'posts_specific',
 			[
-				'label'       => esc_html__( 'Select Specific Posts', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Select Specific Posts', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::SELECT2,
 				'multiple'    => true,
 				'label_block' => true,
 				'options'     => $this->get_all_post_options(),
-				'description' => esc_html__( 'Optional — hand-pick individual posts, of any post type, in addition to the category filter above.', 'np-card-carousel' ),
+				'description' => esc_html__( 'Optional — hand-pick individual posts, of any post type, in addition to the category filter above.', 'card-carousel-for-elementor' ),
 				'condition'   => [ 'data_source' => 'posts' ],
 			]
 		);
@@ -325,10 +325,10 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'posts_count',
 			[
-				'label'       => esc_html__( 'Number of Posts', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Number of Posts', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::NUMBER,
 				'default'     => -1,
-				'description' => esc_html__( 'Maximum number of posts to show. Use -1 for no limit.', 'np-card-carousel' ),
+				'description' => esc_html__( 'Maximum number of posts to show. Use -1 for no limit.', 'card-carousel-for-elementor' ),
 				'condition'   => [ 'data_source' => 'posts' ],
 			]
 		);
@@ -336,11 +336,11 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'posts_show_category',
 			[
-				'label'        => esc_html__( 'Show Category', 'np-card-carousel' ),
+				'label'        => esc_html__( 'Show Category', 'card-carousel-for-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
-				'description'  => esc_html__( 'Displays each post\'s category/taxonomy term(s) as the card subtitle.', 'np-card-carousel' ),
+				'description'  => esc_html__( 'Displays each post\'s category/taxonomy term(s) as the card subtitle.', 'card-carousel-for-elementor' ),
 				'condition'    => [ 'data_source' => 'posts' ],
 			]
 		);
@@ -348,10 +348,10 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'posts_button_text',
 			[
-				'label'       => esc_html__( 'Button / Link Text', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Button / Link Text', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::TEXT,
-				'default'     => esc_html__( 'Learn More', 'np-card-carousel' ),
-				'description' => esc_html__( 'Shown as a button on the Image Overlay style, or a text link at the end of the Media & Text style. Leave empty to hide it.', 'np-card-carousel' ),
+				'default'     => esc_html__( 'Learn More', 'card-carousel-for-elementor' ),
+				'description' => esc_html__( 'Shown as a button on the Image Overlay style, or a text link at the end of the Media & Text style. Leave empty to hide it.', 'card-carousel-for-elementor' ),
 				'condition'   => [ 'data_source' => 'posts' ],
 			]
 		);
@@ -609,7 +609,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_carousel_settings',
 			[
-				'label' => esc_html__( 'Carousel Settings', 'np-card-carousel' ),
+				'label' => esc_html__( 'Carousel Settings', 'card-carousel-for-elementor' ),
 			]
 		);
 
@@ -618,7 +618,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'slides_to_show',
 			[
-				'label'           => esc_html__( 'Slides to Show', 'np-card-carousel' ),
+				'label'           => esc_html__( 'Slides to Show', 'card-carousel-for-elementor' ),
 				'type'            => Controls_Manager::SELECT,
 				'options'         => $slides,
 				'default'         => 3,
@@ -631,7 +631,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'space_between',
 			[
-				'label'       => esc_html__( 'Space Between', 'np-card-carousel' ),
+				'label'       => esc_html__( 'Space Between', 'card-carousel-for-elementor' ),
 				'type'        => Controls_Manager::SLIDER,
 				'size_units'  => [ 'px' ],
 				'range'       => [
@@ -644,14 +644,14 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'navigation',
 			[
-				'label'   => esc_html__( 'Navigation', 'np-card-carousel' ),
+				'label'   => esc_html__( 'Navigation', 'card-carousel-for-elementor' ),
 				'type'    => Controls_Manager::SELECT,
 				'default' => 'both',
 				'options' => [
-					'both'   => esc_html__( 'Arrows and Dots', 'np-card-carousel' ),
-					'arrows' => esc_html__( 'Arrows', 'np-card-carousel' ),
-					'dots'   => esc_html__( 'Dots', 'np-card-carousel' ),
-					'none'   => esc_html__( 'None', 'np-card-carousel' ),
+					'both'   => esc_html__( 'Arrows and Dots', 'card-carousel-for-elementor' ),
+					'arrows' => esc_html__( 'Arrows', 'card-carousel-for-elementor' ),
+					'dots'   => esc_html__( 'Dots', 'card-carousel-for-elementor' ),
+					'none'   => esc_html__( 'None', 'card-carousel-for-elementor' ),
 				],
 				'frontend_available' => true,
 			]
@@ -660,7 +660,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'loop',
 			[
-				'label'        => esc_html__( 'Infinite Loop', 'np-card-carousel' ),
+				'label'        => esc_html__( 'Infinite Loop', 'card-carousel-for-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -671,7 +671,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'autoplay',
 			[
-				'label'        => esc_html__( 'Autoplay', 'np-card-carousel' ),
+				'label'        => esc_html__( 'Autoplay', 'card-carousel-for-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => '',
 				'return_value' => 'yes',
@@ -682,7 +682,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'autoplay_speed',
 			[
-				'label'   => esc_html__( 'Autoplay Speed (ms)', 'np-card-carousel' ),
+				'label'   => esc_html__( 'Autoplay Speed (ms)', 'card-carousel-for-elementor' ),
 				'type'    => Controls_Manager::NUMBER,
 				'default' => 5000,
 				'condition' => [ 'autoplay' => 'yes' ],
@@ -693,7 +693,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'pause_on_hover',
 			[
-				'label'        => esc_html__( 'Pause on Hover', 'np-card-carousel' ),
+				'label'        => esc_html__( 'Pause on Hover', 'card-carousel-for-elementor' ),
 				'type'         => Controls_Manager::SWITCHER,
 				'default'      => 'yes',
 				'return_value' => 'yes',
@@ -705,7 +705,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'speed',
 			[
-				'label'   => esc_html__( 'Transition Speed (ms)', 'np-card-carousel' ),
+				'label'   => esc_html__( 'Transition Speed (ms)', 'card-carousel-for-elementor' ),
 				'type'    => Controls_Manager::NUMBER,
 				'default' => 500,
 				'frontend_available' => true,
@@ -723,7 +723,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_style_card',
 			[
-				'label' => esc_html__( 'Card', 'np-card-carousel' ),
+				'label' => esc_html__( 'Card', 'card-carousel-for-elementor' ),
 				'tab'   => Controls_Manager::TAB_STYLE,
 			]
 		);
@@ -731,7 +731,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'card_background',
 			[
-				'label'     => esc_html__( 'Background', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Background', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => [
@@ -743,7 +743,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'card_border_radius',
 			[
-				'label'      => esc_html__( 'Border Radius', 'np-card-carousel' ),
+				'label'      => esc_html__( 'Border Radius', 'card-carousel-for-elementor' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', '%' ],
 				'default'    => [
@@ -783,7 +783,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'card_padding',
 			[
-				'label'      => esc_html__( 'Content Padding', 'np-card-carousel' ),
+				'label'      => esc_html__( 'Content Padding', 'card-carousel-for-elementor' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'default'    => [
@@ -804,7 +804,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'image_height',
 			[
-				'label'      => esc_html__( 'Image Height', 'np-card-carousel' ),
+				'label'      => esc_html__( 'Image Height', 'card-carousel-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'vh' ],
 				'range'      => [
@@ -829,7 +829,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_style_badges',
 			[
-				'label'     => esc_html__( 'Badges', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Badges', 'card-carousel-for-elementor' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [ 'card_style' => 'default' ],
 			]
@@ -838,7 +838,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'badge_background',
 			[
-				'label'     => esc_html__( 'Background', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Background', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#F3F4F6',
 				'selectors' => [
@@ -850,7 +850,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'badge_text_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Text Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#4B5563',
 				'selectors' => [
@@ -862,7 +862,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'badge_icon_color',
 			[
-				'label'     => esc_html__( 'Icon Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Icon Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#9CA3AF',
 				'selectors' => [
@@ -882,7 +882,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'badge_gap',
 			[
-				'label'      => esc_html__( 'Gap Between Badges', 'np-card-carousel' ),
+				'label'      => esc_html__( 'Gap Between Badges', 'card-carousel-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px' ],
 				'range'      => [ 'px' => [ 'max' => 40 ] ],
@@ -904,7 +904,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_style_text',
 			[
-				'label'     => esc_html__( 'Title & Description', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Title & Description', 'card-carousel-for-elementor' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [ 'card_style' => 'default' ],
 			]
@@ -913,7 +913,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'title_color',
 			[
-				'label'     => esc_html__( 'Title Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Title Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#111827',
 				'selectors' => [
@@ -933,7 +933,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'subtitle_color',
 			[
-				'label'     => esc_html__( 'Subtitle Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Subtitle Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#9CA3AF',
 				'selectors' => [
@@ -953,7 +953,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'description_color',
 			[
-				'label'     => esc_html__( 'Description Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Description Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#6B7280',
 				'selectors' => [
@@ -973,7 +973,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'more_link_color',
 			[
-				'label'     => esc_html__( 'Button / Link Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Button / Link Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#111827',
 				'selectors' => [
@@ -1001,7 +1001,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_style_overlay',
 			[
-				'label'     => esc_html__( 'Image Overlay Style', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Image Overlay Style', 'card-carousel-for-elementor' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [ 'card_style' => 'overlay' ],
 			]
@@ -1010,7 +1010,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'overlay_min_height',
 			[
-				'label'      => esc_html__( 'Card Height', 'np-card-carousel' ),
+				'label'      => esc_html__( 'Card Height', 'card-carousel-for-elementor' ),
 				'type'       => Controls_Manager::SLIDER,
 				'size_units' => [ 'px', 'vh' ],
 				'range'      => [
@@ -1026,7 +1026,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'overlay_gradient_color',
 			[
-				'label'     => esc_html__( 'Gradient Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Gradient Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(10, 10, 10, 0.85)',
 				'selectors' => [
@@ -1038,7 +1038,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_responsive_control(
 			'overlay_content_padding',
 			[
-				'label'      => esc_html__( 'Content Padding', 'np-card-carousel' ),
+				'label'      => esc_html__( 'Content Padding', 'card-carousel-for-elementor' ),
 				'type'       => Controls_Manager::DIMENSIONS,
 				'size_units' => [ 'px', 'em', '%' ],
 				'default'    => [
@@ -1058,7 +1058,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'heading_overlay_title',
 			[
-				'label'     => esc_html__( 'Title & Stats', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Title & Stats', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1067,7 +1067,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'overlay_title_color',
 			[
-				'label'     => esc_html__( 'Title Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Title Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => [
@@ -1087,7 +1087,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'overlay_stats_color',
 			[
-				'label'     => esc_html__( 'Stats Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Stats Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255, 255, 255, 0.8)',
 				'selectors' => [
@@ -1107,7 +1107,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'heading_overlay_button',
 			[
-				'label'     => esc_html__( 'Button', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Button', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 			]
@@ -1116,7 +1116,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'overlay_button_background',
 			[
-				'label'     => esc_html__( 'Background', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Background', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255, 255, 255, 0.18)',
 				'selectors' => [
@@ -1128,7 +1128,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'overlay_button_text_color',
 			[
-				'label'     => esc_html__( 'Text Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Text Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => [
@@ -1148,7 +1148,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->start_controls_section(
 			'section_style_navigation',
 			[
-				'label'     => esc_html__( 'Navigation', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Navigation', 'card-carousel-for-elementor' ),
 				'tab'       => Controls_Manager::TAB_STYLE,
 				'condition' => [
 					'navigation' => [ 'arrows', 'dots', 'both' ],
@@ -1159,7 +1159,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'heading_arrows',
 			[
-				'label'     => esc_html__( 'Arrows', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Arrows', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'condition' => [ 'navigation' => [ 'arrows', 'both' ] ],
 			]
@@ -1168,7 +1168,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'arrows_color',
 			[
-				'label'     => esc_html__( 'Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#111827',
 				'selectors' => [
@@ -1181,7 +1181,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'arrows_background',
 			[
-				'label'     => esc_html__( 'Background', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Background', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#FFFFFF',
 				'selectors' => [
@@ -1194,7 +1194,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'heading_dots',
 			[
-				'label'     => esc_html__( 'Dots', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Dots', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
 				'condition' => [ 'navigation' => [ 'dots', 'both' ] ],
@@ -1204,7 +1204,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'dots_color',
 			[
-				'label'     => esc_html__( 'Active Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Active Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#111827',
 				'selectors' => [
@@ -1217,7 +1217,7 @@ class Card_Carousel_Widget extends Widget_Base {
 		$this->add_control(
 			'dots_inactive_color',
 			[
-				'label'     => esc_html__( 'Inactive Color', 'np-card-carousel' ),
+				'label'     => esc_html__( 'Inactive Color', 'card-carousel-for-elementor' ),
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#D1D5DB',
 				'selectors' => [
@@ -1242,7 +1242,7 @@ class Card_Carousel_Widget extends Widget_Base {
 
 		if ( empty( $cards ) ) {
 			if ( \Elementor\Plugin::$instance->editor->is_edit_mode() ) {
-				echo '<div class="npcc-empty-notice">' . esc_html__( 'No posts matched the current filters.', 'np-card-carousel' ) . '</div>';
+				echo '<div class="npcc-empty-notice">' . esc_html__( 'No posts matched the current filters.', 'card-carousel-for-elementor' ) . '</div>';
 			}
 			return;
 		}
@@ -1290,10 +1290,10 @@ class Card_Carousel_Widget extends Widget_Base {
 			</div>
 
 			<?php if ( count( $cards ) > 1 && $show_arrows ) : ?>
-				<div class="npcc-nav npcc-nav--prev" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Previous', 'np-card-carousel' ); ?>">
+				<div class="npcc-nav npcc-nav--prev" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Previous', 'card-carousel-for-elementor' ); ?>">
 					<?php Icons_Manager::render_icon( [ 'library' => 'eicons', 'value' => 'eicon-chevron-left' ], [ 'aria-hidden' => 'true' ] ); ?>
 				</div>
-				<div class="npcc-nav npcc-nav--next" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Next', 'np-card-carousel' ); ?>">
+				<div class="npcc-nav npcc-nav--next" role="button" tabindex="0" aria-label="<?php esc_attr_e( 'Next', 'card-carousel-for-elementor' ); ?>">
 					<?php Icons_Manager::render_icon( [ 'library' => 'eicons', 'value' => 'eicon-chevron-right' ], [ 'aria-hidden' => 'true' ] ); ?>
 				</div>
 			<?php endif; ?>
