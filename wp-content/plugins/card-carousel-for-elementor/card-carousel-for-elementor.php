@@ -1,9 +1,11 @@
 <?php
 /**
  * Plugin Name: Card Carousel for Elementor
+ * Plugin URI: https://www.nipunapathirana.com
  * Description: Adds a "Card Carousel" widget to Elementor — a Swiper-powered carousel of media cards (image, badges, title, subtitle, description, link), styled after a product/vehicle showcase card.
  * Version: 1.7.3
  * Author: Nipuna Pathirana
+ * Author URI: https://www.nipunapathirana.com
  * Text Domain: card-carousel-for-elementor
  * Requires Plugins: elementor
  * Requires at least: 5.8

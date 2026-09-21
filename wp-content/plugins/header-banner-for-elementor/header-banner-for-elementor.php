@@ -1,9 +1,11 @@
 <?php
 /**
  * Plugin Name: Header Banner for Elementor
+ * Plugin URI: https://www.nipunapathirana.com
  * Description: Adds a "Header Banner" widget to Elementor — a fully customizable page-header/hero section with a static or dynamic title, background image, and full style controls.
  * Version: 1.0.0
  * Author: Nipuna Pathirana
+ * Author URI: https://www.nipunapathirana.com
  * Text Domain: header-banner-for-elementor
  * Requires Plugins: elementor
  * Requires at least: 5.8
