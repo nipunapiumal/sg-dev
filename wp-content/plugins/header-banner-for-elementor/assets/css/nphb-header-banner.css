@@ -1,0 +1,48 @@
+.nphb-banner {
+	position: relative;
+	display: flex;
+	width: 100%;
+	background-color: #101756;
+	background-size: cover;
+	background-position: center center;
+	background-repeat: no-repeat;
+	box-sizing: border-box;
+}
+
+.nphb-banner__overlay {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+}
+
+.nphb-banner__inner {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 100%;
+	box-sizing: border-box;
+}
+
+.nphb-banner__title {
+	display: inline-block;
+	max-width: 100%;
+	margin: 0;
+	color: #ffffff;
+	font-size: 52px;
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+@media (max-width: 1024px) {
+	.nphb-banner__title {
+		font-size: 40px;
+	}
+}
+
+@media (max-width: 767px) {
+	.nphb-banner__title {
+		font-size: 30px;
+	}
+}
