@@ -46,6 +46,7 @@ class Header_Banner_Widget extends Widget_Base {
 		$this->register_style_background_controls();
 		$this->register_style_title_controls();
 		$this->register_style_layout_controls();
+		$this->register_style_modern_controls();
 	}
 
 	/* ------------------------------------------------------------------ */
@@ -57,6 +58,33 @@ class Header_Banner_Widget extends Widget_Base {
 			'section_content',
 			[
 				'label' => esc_html__( 'Title', 'header-banner-for-elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'template',
+			[
+				'label'   => esc_html__( 'Template', 'header-banner-for-elementor' ),
+				'type'    => Controls_Manager::SELECT,
+				'default' => 'template_1',
+				'options' => [
+					'template_1' => esc_html__( 'Template 1 — Classic', 'header-banner-for-elementor' ),
+					'template_2' => esc_html__( 'Template 2 — Modern', 'header-banner-for-elementor' ),
+				],
+				'description' => esc_html__( 'Template 2 adds an optional badge label, a decorative center line, and a scalloped bottom edge.', 'header-banner-for-elementor' ),
+			]
+		);
+
+		$this->add_control(
+			'badge_text',
+			[
+				'label'       => esc_html__( 'Badge Label', 'header-banner-for-elementor' ),
+				'type'        => Controls_Manager::TEXT,
+				'label_block' => true,
+				'default'     => esc_html__( 'UI is for', 'header-banner-for-elementor' ),
+				'dynamic'     => [ 'active' => true ],
+				'description' => esc_html__( 'Small label shown in a circular badge above the title. Leave empty to hide it.', 'header-banner-for-elementor' ),
+				'condition'   => [ 'template' => 'template_2' ],
 			]
 		);
 
@@ -77,10 +105,12 @@ class Header_Banner_Widget extends Widget_Base {
 			'heading_static',
 			[
 				'label'       => esc_html__( 'Title', 'header-banner-for-elementor' ),
-				'type'        => Controls_Manager::TEXT,
+				'type'        => Controls_Manager::TEXTAREA,
+				'rows'        => 2,
 				'label_block' => true,
 				'default'     => esc_html__( 'About Us', 'header-banner-for-elementor' ),
 				'dynamic'     => [ 'active' => true ],
+				'description' => esc_html__( 'Press Enter for a two-line title.', 'header-banner-for-elementor' ),
 				'condition'   => [ 'heading_source' => 'static' ],
 			]
 		);
@@ -377,6 +407,149 @@ class Header_Banner_Widget extends Widget_Base {
 	}
 
 	/* ------------------------------------------------------------------ */
+	/* Style — Template 2 (Modern)                                        */
+	/* ------------------------------------------------------------------ */
+
+	private function register_style_modern_controls() {
+		$this->start_controls_section(
+			'section_style_modern',
+			[
+				'label'     => esc_html__( 'Modern Template (Template 2)', 'header-banner-for-elementor' ),
+				'tab'       => Controls_Manager::TAB_STYLE,
+				'condition' => [ 'template' => 'template_2' ],
+			]
+		);
+
+		$this->add_control(
+			'heading_badge_style',
+			[
+				'label' => esc_html__( 'Badge', 'header-banner-for-elementor' ),
+				'type'  => Controls_Manager::HEADING,
+			]
+		);
+
+		$this->add_control(
+			'badge_bg_color',
+			[
+				'label'     => esc_html__( 'Badge Background', 'header-banner-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#FFFFFF',
+				'selectors' => [
+					'{{WRAPPER}} .nphb-banner__badge' => 'background-color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_control(
+			'badge_text_color',
+			[
+				'label'     => esc_html__( 'Badge Text Color', 'header-banner-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => '#101756',
+				'selectors' => [
+					'{{WRAPPER}} .nphb-banner__badge' => 'color: {{VALUE}};',
+				],
+			]
+		);
+
+		$this->add_responsive_control(
+			'badge_size',
+			[
+				'label'      => esc_html__( 'Badge Size', 'header-banner-for-elementor' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [ 'px' => [ 'min' => 40, 'max' => 140 ] ],
+				'default'    => [ 'unit' => 'px', 'size' => 70 ],
+				'selectors'  => [
+					'{{WRAPPER}} .nphb-banner__badge' => 'width: {{SIZE}}{{UNIT}}; height: {{SIZE}}{{UNIT}}; font-size: calc({{SIZE}}{{UNIT}} * 0.19);',
+				],
+			]
+		);
+
+		$this->add_control(
+			'heading_center_line',
+			[
+				'label'     => esc_html__( 'Center Line', 'header-banner-for-elementor' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'show_center_line',
+			[
+				'label'        => esc_html__( 'Show Center Line', 'header-banner-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'center_line_color',
+			[
+				'label'     => esc_html__( 'Center Line Color', 'header-banner-for-elementor' ),
+				'type'      => Controls_Manager::COLOR,
+				'default'   => 'rgba(255,255,255,0.4)',
+				'selectors' => [
+					'{{WRAPPER}} .nphb-banner__center-line' => 'background-color: {{VALUE}};',
+				],
+				'condition' => [ 'show_center_line' => 'yes' ],
+			]
+		);
+
+		$this->add_control(
+			'heading_scallop',
+			[
+				'label'     => esc_html__( 'Bottom Edge', 'header-banner-for-elementor' ),
+				'type'      => Controls_Manager::HEADING,
+				'separator' => 'before',
+			]
+		);
+
+		$this->add_control(
+			'show_scallop',
+			[
+				'label'        => esc_html__( 'Show Scalloped Edge', 'header-banner-for-elementor' ),
+				'type'         => Controls_Manager::SWITCHER,
+				'default'      => 'yes',
+				'return_value' => 'yes',
+			]
+		);
+
+		$this->add_control(
+			'scallop_color',
+			[
+				'label'       => esc_html__( 'Edge Color', 'header-banner-for-elementor' ),
+				'type'        => Controls_Manager::COLOR,
+				'default'     => '#FFFFFF',
+				'selectors'   => [
+					'{{WRAPPER}} .nphb-banner__scallop' => 'background-color: {{VALUE}};',
+				],
+				'description' => esc_html__( 'Should match the background color of whatever comes directly after this banner, so the scallops blend in seamlessly.', 'header-banner-for-elementor' ),
+				'condition'   => [ 'show_scallop' => 'yes' ],
+			]
+		);
+
+		$this->add_responsive_control(
+			'scallop_size',
+			[
+				'label'      => esc_html__( 'Scallop Size', 'header-banner-for-elementor' ),
+				'type'       => Controls_Manager::SLIDER,
+				'size_units' => [ 'px' ],
+				'range'      => [ 'px' => [ 'min' => 16, 'max' => 100 ] ],
+				'default'    => [ 'unit' => 'px', 'size' => 44 ],
+				'selectors'  => [
+					'{{WRAPPER}} .nphb-banner__scallop' => '--nphb-scallop-size: {{SIZE}}{{UNIT}};',
+				],
+				'condition'  => [ 'show_scallop' => 'yes' ],
+			]
+		);
+
+		$this->end_controls_section();
+	}
+
+	/* ------------------------------------------------------------------ */
 	/* Render                                                             */
 	/* ------------------------------------------------------------------ */
 
@@ -439,6 +612,14 @@ class Header_Banner_Widget extends Widget_Base {
 		return '';
 	}
 
+	/**
+	 * Static titles come from a TEXTAREA so a two-line title can be typed
+	 * with Enter; convert those line breaks to <br> safely.
+	 */
+	private function print_title( $title ) {
+		echo nl2br( esc_html( $title ) ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
+	}
+
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$title    = $this->get_title_text( $settings );
@@ -453,6 +634,11 @@ class Header_Banner_Widget extends Widget_Base {
 		if ( 'dynamic' === $settings['heading_source'] ) {
 			$this->add_render_attribute( 'title', 'class', 'nphb-banner__title--dynamic' );
 		}
+
+		if ( 'template_2' === $settings['template'] ) {
+			$this->render_template_2( $settings, $title, $banner_style, $has_bg_image );
+			return;
+		}
 		?>
 		<div class="nphb-banner"<?php echo $banner_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
 			<?php if ( $has_bg_image ) : ?>
@@ -460,9 +646,37 @@ class Header_Banner_Widget extends Widget_Base {
 			<?php endif; ?>
 			<div class="nphb-banner__inner">
 				<?php if ( ! empty( $title ) ) : ?>
-					<h1 <?php $this->print_render_attribute_string( 'title' ); ?>><?php echo esc_html( $title ); ?></h1>
+					<h1 <?php $this->print_render_attribute_string( 'title' ); ?>><?php $this->print_title( $title ); ?></h1>
 				<?php endif; ?>
 			</div>
+		</div>
+		<?php
+	}
+
+	private function render_template_2( $settings, $title, $banner_style, $has_bg_image ) {
+		$this->add_render_attribute( 'title', 'class', 'nphb-banner__title--modern' );
+
+		$show_center_line = 'yes' === $settings['show_center_line'];
+		$show_scallop     = 'yes' === $settings['show_scallop'];
+		?>
+		<div class="nphb-banner nphb-banner--modern"<?php echo $banner_style; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>>
+			<?php if ( $has_bg_image ) : ?>
+				<div class="nphb-banner__overlay"></div>
+			<?php endif; ?>
+			<?php if ( $show_center_line ) : ?>
+				<div class="nphb-banner__center-line"></div>
+			<?php endif; ?>
+			<div class="nphb-banner__inner">
+				<?php if ( ! empty( $settings['badge_text'] ) ) : ?>
+					<span class="nphb-banner__badge"><?php echo esc_html( $settings['badge_text'] ); ?></span>
+				<?php endif; ?>
+				<?php if ( ! empty( $title ) ) : ?>
+					<h1 <?php $this->print_render_attribute_string( 'title' ); ?>><?php $this->print_title( $title ); ?></h1>
+				<?php endif; ?>
+			</div>
+			<?php if ( $show_scallop ) : ?>
+				<div class="nphb-banner__scallop"></div>
+			<?php endif; ?>
 		</div>
 		<?php
 	}

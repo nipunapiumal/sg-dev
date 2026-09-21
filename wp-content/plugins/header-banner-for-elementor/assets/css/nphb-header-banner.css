@@ -46,3 +46,82 @@
 		font-size: 30px;
 	}
 }
+
+/* ------------------------------------------------------------------ */
+/* Template 2 — Modern                                                 */
+/* ------------------------------------------------------------------ */
+
+.nphb-banner--modern {
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+	overflow: hidden;
+}
+
+.nphb-banner--modern .nphb-banner__inner {
+	align-items: center;
+}
+
+.nphb-banner__badge {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 70px;
+	height: 70px;
+	margin: 0 auto 18px;
+	border-radius: 50%;
+	background-color: #ffffff;
+	color: #101756;
+	font-size: 13px;
+	font-weight: 600;
+	line-height: 1.25;
+	text-align: center;
+	text-transform: none;
+}
+
+.nphb-banner__title--modern {
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	text-align: center;
+}
+
+.nphb-banner__center-line {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 50%;
+	z-index: 1;
+	width: 1px;
+	background-color: rgba(255, 255, 255, 0.4);
+	pointer-events: none;
+}
+
+.nphb-banner__scallop {
+	--nphb-scallop-size: 44px;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+	height: calc(var(--nphb-scallop-size) / 2);
+	background-color: #ffffff;
+	-webkit-mask-image: radial-gradient(
+		circle at 50% 100%,
+		#000 0,
+		#000 calc(var(--nphb-scallop-size) / 2 - 1px),
+		transparent calc(var(--nphb-scallop-size) / 2)
+	);
+	mask-image: radial-gradient(
+		circle at 50% 100%,
+		#000 0,
+		#000 calc(var(--nphb-scallop-size) / 2 - 1px),
+		transparent calc(var(--nphb-scallop-size) / 2)
+	);
+	-webkit-mask-size: var(--nphb-scallop-size) var(--nphb-scallop-size);
+	mask-size: var(--nphb-scallop-size) var(--nphb-scallop-size);
+	-webkit-mask-repeat: repeat-x;
+	mask-repeat: repeat-x;
+	-webkit-mask-position: bottom left;
+	mask-position: bottom left;
+	pointer-events: none;
+}

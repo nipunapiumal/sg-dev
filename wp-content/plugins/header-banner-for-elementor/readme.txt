@@ -4,7 +4,7 @@ Tags: elementor, header, banner, hero, page title
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.1.0
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -16,8 +16,9 @@ Header Banner for Elementor adds a single widget for building page-header/hero b
 
 Features:
 
-* **Title source**: static text you type yourself, or dynamic — automatically pulls the current page/post title, the site title, or the site tagline, so the same banner works across many pages.
-* **Background**: any image from the Media Library, with image size/position controls, plus an adjustable color overlay for text readability.
+* **Two templates**: Template 1 (Classic) is a simple centered title over a background image; Template 2 (Modern) adds a circular badge label, a decorative center line, and a scalloped bottom edge for a distinctive, modern look.
+* **Title source**: static text you type yourself (two lines supported), or dynamic — automatically pulls the current page/post title, the site title, or the site tagline, so the same banner works across many pages.
+* **Background**: any image from the Media Library, or automatically use the page/post's Featured Image, with image size/position controls and an adjustable color overlay for text readability.
 * **Title styling**: color, full typography controls (font family, size, weight, line-height, letter-spacing — all responsive), alignment, and max-width.
 * **Layout controls**: min-height, padding, margin, and border-radius — all independently responsive per breakpoint (desktop/tablet/mobile) — plus a box-shadow control.
 * Fully mobile responsive throughout.
@@ -47,7 +48,15 @@ Set **Title Source** to **Dynamic** and pick **Current Page / Post Title** to ha
 
 Yes. Set **Background Image Source** (Style tab → Background) to **Featured Image**, and the banner will automatically use whichever page/post it's placed on's featured image — handy inside a single template applied across many pages. If that page has no featured image, no background image is shown. Switch back to **Media Library** at any time to pick a fixed image instead.
 
+= What's the difference between Template 1 and Template 2? =
+
+Template 1 (Classic) is a simple centered title over your background. Template 2 (Modern) adds a small circular badge label above the title, a thin vertical accent line, and a scalloped (wavy) bottom edge — switch between them with the **Template** control at the top of the Content tab. All background, title, and layout style controls apply to both templates; Template 2 additionally gets its own **Modern Template** style section for the badge, center line, and scallop edge.
+
 == Changelog ==
+
+= 1.2.0 =
+* Added a **Template** selector: Template 1 (Classic, the original design) and Template 2 (Modern) with a circular badge label, decorative center line, and scalloped bottom edge.
+* The static Title field now supports a second line (press Enter).
 
 = 1.1.0 =
 * Added a "Background Image Source" option: choose between the Media Library (pick any image) or the page/post's Featured Image (automatically follows whichever page the banner is placed on). Both share the same Image Size control.
