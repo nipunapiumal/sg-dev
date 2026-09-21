@@ -4,7 +4,7 @@ Tags: elementor, header, banner, hero, page title
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -43,7 +43,14 @@ No. It works with the free version of Elementor.
 
 Set **Title Source** to **Dynamic** and pick **Current Page / Post Title** to have the banner automatically show the title of whichever page it's placed on (useful inside a template applied to many pages), or pick **Site Title**/**Site Tagline** to pull those instead.
 
+= Can the background use the page's featured image instead of a fixed image? =
+
+Yes. Set **Background Image Source** (Style tab → Background) to **Featured Image**, and the banner will automatically use whichever page/post it's placed on's featured image — handy inside a single template applied across many pages. If that page has no featured image, no background image is shown. Switch back to **Media Library** at any time to pick a fixed image instead.
+
 == Changelog ==
+
+= 1.1.0 =
+* Added a "Background Image Source" option: choose between the Media Library (pick any image) or the page/post's Featured Image (automatically follows whichever page the banner is placed on). Both share the same Image Size control.
 
 = 1.0.0 =
 * Initial release.

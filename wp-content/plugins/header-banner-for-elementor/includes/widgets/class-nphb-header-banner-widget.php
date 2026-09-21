@@ -147,20 +147,34 @@ class Header_Banner_Widget extends Widget_Base {
 		);
 
 		$this->add_control(
+			'background_source',
+			[
+				'label'       => esc_html__( 'Background Image Source', 'header-banner-for-elementor' ),
+				'type'        => Controls_Manager::SELECT,
+				'default'     => 'media',
+				'options'     => [
+					'media'          => esc_html__( 'Media Library', 'header-banner-for-elementor' ),
+					'featured_image' => esc_html__( 'Featured Image', 'header-banner-for-elementor' ),
+				],
+				'description' => esc_html__( '"Featured Image" automatically uses the featured image of whichever page/post this banner is placed on. If that page has no featured image set, no background image will show.', 'header-banner-for-elementor' ),
+			]
+		);
+
+		$this->add_control(
 			'background_image',
 			[
-				'label'   => esc_html__( 'Background Image', 'header-banner-for-elementor' ),
-				'type'    => Controls_Manager::MEDIA,
-				'default' => [ 'url' => '' ],
+				'label'     => esc_html__( 'Background Image', 'header-banner-for-elementor' ),
+				'type'      => Controls_Manager::MEDIA,
+				'default'   => [ 'url' => '' ],
+				'condition' => [ 'background_source' => 'media' ],
 			]
 		);
 
 		$this->add_group_control(
 			Group_Control_Image_Size::get_type(),
 			[
-				'name'      => 'background_image',
-				'default'   => 'full',
-				'condition' => [ 'background_image[url]!' => '' ],
+				'name'    => 'background_image',
+				'default' => 'full',
 			]
 		);
 
@@ -180,7 +194,6 @@ class Header_Banner_Widget extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .nphb-banner' => 'background-position: {{VALUE}};',
 				],
-				'condition' => [ 'background_image[url]!' => '' ],
 			]
 		);
 
@@ -190,7 +203,6 @@ class Header_Banner_Widget extends Widget_Base {
 				'label'     => esc_html__( 'Overlay', 'header-banner-for-elementor' ),
 				'type'      => Controls_Manager::HEADING,
 				'separator' => 'before',
-				'condition' => [ 'background_image[url]!' => '' ],
 			]
 		);
 
@@ -203,7 +215,6 @@ class Header_Banner_Widget extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .nphb-banner__overlay' => 'background-color: {{VALUE}};',
 				],
-				'condition' => [ 'background_image[url]!' => '' ],
 			]
 		);
 
@@ -217,7 +228,6 @@ class Header_Banner_Widget extends Widget_Base {
 				'selectors' => [
 					'{{WRAPPER}} .nphb-banner__overlay' => 'opacity: {{SIZE}};',
 				],
-				'condition' => [ 'background_image[url]!' => '' ],
 			]
 		);
 
@@ -396,20 +406,45 @@ class Header_Banner_Widget extends Widget_Base {
 		}
 	}
 
+	/**
+	 * Resolve the background image URL for either source: the Media Library
+	 * picker, or the featured image of whichever post this banner renders
+	 * on. Both share the same Image Size control.
+	 */
+	private function get_background_image_url( $settings ) {
+		$attachment_id = 0;
+
+		if ( 'featured_image' === $settings['background_source'] ) {
+			$post_id = get_the_ID();
+
+			if ( $post_id ) {
+				$attachment_id = get_post_thumbnail_id( $post_id );
+			}
+		} elseif ( ! empty( $settings['background_image']['id'] ) ) {
+			$attachment_id = $settings['background_image']['id'];
+		}
+
+		if ( $attachment_id ) {
+			$src = Group_Control_Image_Size::get_attachment_image_src( $attachment_id, 'background_image', $settings );
+
+			if ( $src ) {
+				return $src;
+			}
+		}
+
+		if ( 'media' === $settings['background_source'] && ! empty( $settings['background_image']['url'] ) ) {
+			return $settings['background_image']['url'];
+		}
+
+		return '';
+	}
+
 	protected function render() {
 		$settings = $this->get_settings_for_display();
 		$title    = $this->get_title_text( $settings );
 
-		$has_bg_image = ! empty( $settings['background_image']['url'] ) || ! empty( $settings['background_image']['id'] );
-		$bg_image_url = '';
-
-		if ( $has_bg_image ) {
-			$bg_image_url = Group_Control_Image_Size::get_attachment_image_src( $settings['background_image']['id'], 'background_image', $settings );
-
-			if ( ! $bg_image_url ) {
-				$bg_image_url = $settings['background_image']['url'];
-			}
-		}
+		$bg_image_url = $this->get_background_image_url( $settings );
+		$has_bg_image = ! empty( $bg_image_url );
 
 		$banner_style = $bg_image_url ? ' style="background-image:url(' . esc_url( $bg_image_url ) . ');"' : '';
 
