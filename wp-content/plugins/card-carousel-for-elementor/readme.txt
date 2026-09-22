@@ -4,7 +4,7 @@ Tags: elementor, carousel, slider, cards, swiper
 Requires at least: 5.8
 Tested up to: 7.1
 Requires PHP: 8.0
-Stable tag: 1.7.3
+Stable tag: 1.7.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -52,6 +52,9 @@ Yes. Set **Card Source** to **Posts (Dynamic)** in the widget's Cards section, t
 Yes. When using the **Posts (Dynamic)** source, turn off the **Show Category** switch in the Posts Source settings.
 
 == Changelog ==
+
+= 1.7.4 =
+* Maintenance release: added Plugin URI / Author URI, and moved the WordPress.org listing-icon source files into the plugin folder (excluded from the packaged ZIP).
 
 = 1.7.3 =
 * Updated the plugin icon used for the WordPress.org listing (prepared as properly sized icon-128x128.png / icon-256x256.png assets).

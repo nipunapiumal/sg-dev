@@ -3,7 +3,7 @@
  * Plugin Name: Card Carousel for Elementor
  * Plugin URI: https://www.nipunapathirana.com
  * Description: Adds a "Card Carousel" widget to Elementor — a Swiper-powered carousel of media cards (image, badges, title, subtitle, description, link), styled after a product/vehicle showcase card.
- * Version: 1.7.3
+ * Version: 1.7.4
  * Author: Nipuna Pathirana
  * Author URI: https://www.nipunapathirana.com
  * Text Domain: card-carousel-for-elementor
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'NPCC_VERSION', '1.7.3' );
+define( 'NPCC_VERSION', '1.7.4' );
 define( 'NPCC_MIN_PHP', '8.0' );
 define( 'NPCC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NPCC_URL', plugin_dir_url( __FILE__ ) );
