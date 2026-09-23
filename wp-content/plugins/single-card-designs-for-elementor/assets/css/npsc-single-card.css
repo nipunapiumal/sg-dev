@@ -1,0 +1,265 @@
+.npsc-card {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 560px;
+	background-color: #ffffff;
+	border-radius: 20px;
+	overflow: hidden;
+	box-sizing: border-box;
+	font-family: inherit;
+}
+
+/* ------------------------------------------------------------------ */
+/* Top row — tags + rating, shared by both templates                   */
+/* ------------------------------------------------------------------ */
+
+.npsc-card__top-row {
+	position: absolute;
+	top: 16px;
+	left: 16px;
+	right: 16px;
+	z-index: 3;
+	display: flex;
+	align-items: flex-start;
+	justify-content: space-between;
+	gap: 8px;
+	pointer-events: none;
+}
+
+.npsc-card__tags {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+}
+
+.npsc-tag {
+	display: inline-flex;
+	align-items: center;
+	padding: 6px 14px;
+	border-radius: 999px;
+	background-color: rgba(0, 0, 0, 0.45);
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: 500;
+	line-height: 1;
+	white-space: nowrap;
+	backdrop-filter: blur(4px);
+}
+
+.npsc-card__rating {
+	display: inline-flex;
+	align-items: center;
+	gap: 5px;
+	padding: 6px 12px;
+	border-radius: 999px;
+	background-color: rgba(0, 0, 0, 0.45);
+	color: #ffffff;
+	font-size: 12px;
+	font-weight: 600;
+	line-height: 1;
+	white-space: nowrap;
+	backdrop-filter: blur(4px);
+}
+
+.npsc-card__rating i,
+.npsc-card__rating svg {
+	font-size: 11px;
+	width: 11px;
+	height: 11px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Dots — decorative                                                   */
+/* ------------------------------------------------------------------ */
+
+.npsc-card__dots {
+	position: absolute;
+	left: 0;
+	right: 0;
+	z-index: 3;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 6px;
+	pointer-events: none;
+}
+
+.npsc-dot {
+	width: 6px;
+	height: 6px;
+	border-radius: 999px;
+	background-color: rgba(255, 255, 255, 0.5);
+	transition: width 0.2s ease;
+}
+
+.npsc-dot--active {
+	width: 18px;
+	background-color: #ffffff;
+}
+
+/* ------------------------------------------------------------------ */
+/* Template 1 — Light                                                  */
+/* ------------------------------------------------------------------ */
+
+.npsc-card--light {
+	padding: 12px;
+}
+
+.npsc-card--light .npsc-card__media {
+	position: relative;
+	flex-shrink: 0;
+	height: 55%;
+	border-radius: 16px 16px 0 0;
+	overflow: hidden;
+	background-color: #f3f4f6;
+}
+
+.npsc-card--light .npsc-card__img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	display: block;
+}
+
+.npsc-card--light .npsc-card__dots {
+	bottom: 14px;
+}
+
+.npsc-card--light .npsc-card__body {
+	display: flex;
+	flex: 1;
+	flex-direction: column;
+	min-height: 0;
+	padding: 20px;
+	overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ */
+/* Template 2 — Image Overlay                                          */
+/* ------------------------------------------------------------------ */
+
+.npsc-card--overlay {
+	justify-content: flex-end;
+	background-color: #1f2937;
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.npsc-card__gradient {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	pointer-events: none;
+	background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.9) 100%);
+}
+
+.npsc-card--overlay .npsc-card__dots {
+	top: 38%;
+}
+
+.npsc-card--overlay .npsc-card__body {
+	position: relative;
+	z-index: 2;
+	padding: 20px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Body content — shared                                               */
+/* ------------------------------------------------------------------ */
+
+.npsc-card__title-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	margin-bottom: 10px;
+}
+
+.npsc-card__title {
+	margin: 0;
+	color: #111827;
+	font-size: 22px;
+	font-weight: 700;
+	line-height: 1.3;
+}
+
+.npsc-card--overlay .npsc-card__title {
+	color: #ffffff;
+}
+
+.npsc-card__highlight {
+	flex-shrink: 0;
+	padding: 6px 14px;
+	border-radius: 999px;
+	border: 1px solid #111827;
+	color: #111827;
+	font-size: 12px;
+	font-weight: 600;
+	white-space: nowrap;
+}
+
+.npsc-card--overlay .npsc-card__highlight {
+	border-color: rgba(255, 255, 255, 0.8);
+	color: #ffffff;
+}
+
+.npsc-card__desc {
+	margin: 0 0 12px;
+	color: #6b7280;
+	font-size: 14px;
+	line-height: 1.6;
+	overflow: hidden;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+}
+
+.npsc-card--overlay .npsc-card__desc {
+	color: rgba(255, 255, 255, 0.85);
+}
+
+.npsc-card__author {
+	display: block;
+	margin-bottom: 16px;
+	color: #111827;
+	font-size: 14px;
+	font-weight: 700;
+}
+
+.npsc-card--overlay .npsc-card__author {
+	color: #ffffff;
+}
+
+.npsc-card__button {
+	display: block;
+	width: 100%;
+	box-sizing: border-box;
+	padding: 14px 20px;
+	border-radius: 12px;
+	background-color: #111827;
+	color: #ffffff;
+	font-size: 14px;
+	font-weight: 600;
+	text-align: center;
+	text-decoration: none;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.2s ease;
+}
+
+.npsc-card--light .npsc-card__body {
+	justify-content: flex-start;
+}
+
+.npsc-card--light .npsc-card__button {
+	margin-top: auto;
+}
+
+@media (max-width: 480px) {
+	.npsc-card__title {
+		font-size: 19px;
+	}
+}
