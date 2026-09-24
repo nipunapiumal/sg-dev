@@ -207,18 +207,55 @@
 }
 
 .npsc-card__desc {
-	margin: 0 0 12px;
+	margin: 0 0 4px;
 	color: #6b7280;
 	font-size: 14px;
 	line-height: 1.6;
-	overflow: hidden;
-	display: -webkit-box;
-	-webkit-line-clamp: 3;
-	-webkit-box-orient: vertical;
 }
 
 .npsc-card--overlay .npsc-card__desc {
 	color: rgba(255, 255, 255, 0.85);
+}
+
+.npsc-card__desc-wrap {
+	margin-bottom: 12px;
+}
+
+.npsc-card__desc--full {
+	display: none;
+}
+
+.npsc-card__desc-toggle:checked ~ .npsc-card__desc--short {
+	display: none;
+}
+
+.npsc-card__desc-toggle:checked ~ .npsc-card__desc--full {
+	display: block;
+}
+
+.npsc-card__desc-toggle-label {
+	display: inline-block;
+	color: #6b7280;
+	font-size: 13px;
+	font-weight: 700;
+	text-decoration: underline;
+	cursor: pointer;
+}
+
+.npsc-card--overlay .npsc-card__desc-toggle-label {
+	color: rgba(255, 255, 255, 0.85);
+}
+
+.npsc-card__desc-less {
+	display: none;
+}
+
+.npsc-card__desc-toggle:checked ~ .npsc-card__desc-toggle-label .npsc-card__desc-more {
+	display: none;
+}
+
+.npsc-card__desc-toggle:checked ~ .npsc-card__desc-toggle-label .npsc-card__desc-less {
+	display: inline;
 }
 
 .npsc-card__author {

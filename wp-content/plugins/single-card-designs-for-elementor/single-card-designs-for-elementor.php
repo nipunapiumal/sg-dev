@@ -3,7 +3,7 @@
  * Plugin Name: Single Card Designs for Elementor
  * Plugin URI: https://www.nipunapathirana.com
  * Description: Adds a "Single Card" widget to Elementor — a product/content showcase card with two selectable templates, fully customizable text, fonts, image, height, and button styling.
- * Version: 1.0.0
+ * Version: 1.1.0
  * Author: Nipuna Pathirana
  * Author URI: https://www.nipunapathirana.com
  * Text Domain: single-card-designs-for-elementor
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
 
-define( 'NPSC_VERSION', '1.0.0' );
+define( 'NPSC_VERSION', '1.1.0' );
 define( 'NPSC_MIN_PHP', '8.0' );
 define( 'NPSC_PATH', plugin_dir_path( __FILE__ ) );
 define( 'NPSC_URL', plugin_dir_url( __FILE__ ) );

@@ -234,20 +234,10 @@ class Single_Card_Widget extends Widget_Base {
 				'label'       => esc_html__( 'Description', 'single-card-designs-for-elementor' ),
 				'type'        => Controls_Manager::TEXTAREA,
 				'rows'        => 4,
+				'maxlength'   => 500,
 				'default'     => esc_html__( "One of Willard Price's adventure stories featuring Hal and Roger Hunt. The boys have a new quarry - the big-game poachers ...", 'single-card-designs-for-elementor' ),
 				'dynamic'     => [ 'active' => true ],
-				'condition'   => [ 'show_description' => 'yes' ],
-			]
-		);
-
-		$this->add_control(
-			'description_limit',
-			[
-				'label'       => esc_html__( 'Character Limit', 'single-card-designs-for-elementor' ),
-				'type'        => Controls_Manager::NUMBER,
-				'default'     => 120,
-				'min'         => 0,
-				'description' => esc_html__( 'Use 0 for no limit.', 'single-card-designs-for-elementor' ),
+				'description' => esc_html__( '500 characters maximum. Shown truncated at 120 characters with a "See More" toggle if longer.', 'single-card-designs-for-elementor' ),
 				'condition'   => [ 'show_description' => 'yes' ],
 			]
 		);
@@ -726,7 +716,7 @@ class Single_Card_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => '#6B7280',
 				'selectors' => [
-					'{{WRAPPER}} .npsc-card__desc' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .npsc-card__desc, {{WRAPPER}} .npsc-card__desc-toggle-label' => 'color: {{VALUE}};',
 				],
 				'condition' => [ 'template' => 'template_1' ],
 			]
@@ -739,7 +729,7 @@ class Single_Card_Widget extends Widget_Base {
 				'type'      => Controls_Manager::COLOR,
 				'default'   => 'rgba(255,255,255,0.85)',
 				'selectors' => [
-					'{{WRAPPER}} .npsc-card__desc' => 'color: {{VALUE}};',
+					'{{WRAPPER}} .npsc-card__desc, {{WRAPPER}} .npsc-card__desc-toggle-label' => 'color: {{VALUE}};',
 				],
 				'condition' => [ 'template' => 'template_2' ],
 			]
@@ -1021,6 +1011,38 @@ class Single_Card_Widget extends Widget_Base {
 		echo '</div>';
 	}
 
+	/**
+	 * Descriptions are hard-capped at 500 characters. Anything past 120
+	 * characters is shown as a short excerpt with a CSS-only (no JS)
+	 * "See More" / "See Less" toggle that reveals the full text.
+	 */
+	private function render_description( $settings ) {
+		if ( 'yes' !== $settings['show_description'] || empty( $settings['description'] ) ) {
+			return;
+		}
+
+		$full  = mb_substr( $settings['description'], 0, 500 );
+		$short = wp_html_excerpt( $full, 120, '…' );
+
+		if ( $short === $full ) {
+			echo '<p class="npsc-card__desc">' . esc_html( $full ) . '</p>';
+			return;
+		}
+
+		$toggle_id = 'npsc-desc-' . $this->get_id();
+		?>
+		<div class="npsc-card__desc-wrap">
+			<input type="checkbox" id="<?php echo esc_attr( $toggle_id ); ?>" class="npsc-card__desc-toggle" hidden />
+			<p class="npsc-card__desc npsc-card__desc--short"><?php echo esc_html( $short ); ?></p>
+			<p class="npsc-card__desc npsc-card__desc--full"><?php echo esc_html( $full ); ?></p>
+			<label for="<?php echo esc_attr( $toggle_id ); ?>" class="npsc-card__desc-toggle-label">
+				<span class="npsc-card__desc-more"><?php esc_html_e( 'See More', 'single-card-designs-for-elementor' ); ?></span>
+				<span class="npsc-card__desc-less"><?php esc_html_e( 'See Less', 'single-card-designs-for-elementor' ); ?></span>
+			</label>
+		</div>
+		<?php
+	}
+
 	private function render_body( $settings ) {
 		echo '<div class="npsc-card__body">';
 
@@ -1033,11 +1055,7 @@ class Single_Card_Widget extends Widget_Base {
 		}
 		echo '</div>';
 
-		if ( 'yes' === $settings['show_description'] && ! empty( $settings['description'] ) ) {
-			$limit       = isset( $settings['description_limit'] ) ? (int) $settings['description_limit'] : 0;
-			$description = $limit > 0 ? wp_html_excerpt( $settings['description'], $limit, '…' ) : $settings['description'];
-			echo '<p class="npsc-card__desc">' . esc_html( $description ) . '</p>';
-		}
+		$this->render_description( $settings );
 
 		if ( ! empty( $settings['author_text'] ) ) {
 			echo '<span class="npsc-card__author">' . esc_html( $settings['author_text'] ) . '</span>';
